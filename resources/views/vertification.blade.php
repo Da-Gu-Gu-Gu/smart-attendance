@@ -17,10 +17,10 @@
     <h3 class="animate__animated animate__flipInX text-center ">Enter Verification Code </h3>
   
     <form id="verify_form" class="my-5 col-12">
-         <center><input type="text"  id="1" maxlength="1" onkeyup="change(this,'2')">
-        <input type="text"  id="2" maxlength="1" onkeyup="change(this,'3')">
-        <input type="text"  id="3" maxlength="1" onkeyup="change(this,'4')">
-        <input type="text"  id="4" maxlength="1">
+         <center><input type="text"  id="1" class="form-controls" maxlength="1" onkeyup="change(this,'2')">
+        <input type="text"  id="2"class="form-controls" maxlength="1" onkeyup="change(this,'3')">
+        <input type="text"  id="3" class="form-controls"maxlength="1" onkeyup="change(this,'4')">
+        <input type="text"  id="4" class="form-controls" maxlength="1">
     
         <button type="submit" class="d-block aa btn my-5 ">VERIFY</button>
          </center>

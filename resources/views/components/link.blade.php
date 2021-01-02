@@ -26,4 +26,33 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
 
 {{-- axios --}}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+
+{{-- nanobar --}}
+<style>
+     .my-class .bar {
+     z-index: 99999999999;
+     height: 5px;
+     background-image: linear-gradient(to right top, #d6b4f0, #ea99db, #fd7cb7, #ff5f86, #ff4c4c);
+}
+</style>
+<div class="nanobar my-class" id="my-id" style="position: fixed;z-index:199999;top:0;">
+  <div class="bar"></div>
+</div>
+{{-- nano-js --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nanobar/0.4.2/nanobar.min.js" integrity="sha512-1Al+dnfE+1gI7IBmpUZ8XnZ3l3Nv6cyA+XgdtlaptVNxJcWWRzHxOPzT+2pbp52qtXa2jkwk0MWYSmxslMsHCQ==" crossorigin="anonymous"></script>
+<script>
+var options = {
+	classname: 'my-class',
+    id: 'my-id'
+};
+var nanobar = new Nanobar( options );
+nanobar.go( 30 );
+nanobar.go( 76 );
+nanobar.go(100);
+ 
+
+</script>
+
 </div>

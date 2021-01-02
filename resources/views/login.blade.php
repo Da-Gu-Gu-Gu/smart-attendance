@@ -11,8 +11,8 @@
 <body>
     <x-navigation/>
     <div class="container  my-5">
-        <div class="row">
-        <div class="col-xl-6  "  style="overflow-x: hidden;" >
+        <div class="row" style="overflow: hidden;">
+        <div class="col-xl-6  "   >
             <h1 id="ltext" style="font-size: 3.3rem;" class="animate__animated animate__bounceInLeft">If you are <b id="change">student</b> ,<br>
             login here  <i class="fas fa-long-arrow-alt-right"></i></h1>
         </div>
@@ -60,19 +60,24 @@
             {{-- teacher login form --}}
             
             <div id="teacher-lform" class="rounded m-auto col-xl-9 col-lg-8 col-md-6  border py-4 shadow animate__animated  animate__backInRight " style="display: none;overflow-x: hidden;">
-              <form class="px-4 pt-3 " action="/login/teacher" method="POST">
-                
-                  <div class="form-group">
-                    <input type="email" class="form-control"  aria-describedby="emailHelp" placeholder="Email">
-                    {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+              <form class="px-4 pt-3 " id="teacherlogin" method="POST">
+                @csrf
+                <small class="  text-center alert-danger py-2 px-3  rounded" style="display:none;" id="tl_error"></small>
+                  <div class="form-group mt-3">
+                    <input type="email" class="form-control" id="temail"  aria-describedby="emailHelp" placeholder="Email">
+                    <small class="text-danger d-block " id="tl_email-error"></small>
                   </div>
                   <div class="form-group">
                       <div class="input-group">
                           <input type="password" name="password" id="tpassword" class="form-control validate" placeholder="Password">
                           <span toggle="#tpassword" class="text-dark fa fa-eye-slash field-icon"  id="teye" onclick="tshow()"></span>
                       </div>
+                      <small class="text-danger d-block " id="tl_password-error"></small>
                     </div>
-                    <button type="submit" class="btn btn-dark col-12">Login</button>
+                    <button type="submit" class="btn  text-white col-12 text-weight-bold" id="tsubmit" style="background-color: tomato;">
+                      <div class="spinner-border spinner-border-sm text-light " id="tloading-icon" style="opacity: 0;" role="status" style="vertical-align: text-top;"> </div>
+                      <span class="tbtn_text text-white " style="vertical-align: middle;">Login</span>
+                    </button>
               
                     <a href="/teacher/forgot-password" class="text-decoration-none"><small class="form-text text-muted text-center mt-3 cursor">forgot password ?</small> </a>
                   </form>
@@ -182,6 +187,6 @@
 </div>
 
 </body>
-<script src="{{ asset('js/login.js') }}"></script>
+<script src="{{ asset('js/login.min.js') }}"></script>
 
 </html>

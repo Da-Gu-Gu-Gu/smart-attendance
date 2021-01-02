@@ -2,8 +2,9 @@
   <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <nav class="navbar navbar-light bg-white shadow-lg" >
         <div class="container">
-        <a class="navbar-brand " href="/">
-          <img src="{{ asset('img/ucsylogo.png') }}" width="45" height="45" alt="" loading="lazy">
+        <a class="navbar-brand" href="/">
+          <img src="{{ asset('img/logo.png') }}" width="50" height="50" alt="" loading="lazy">
+        
         </a>
       
         {{-- l-nav --}}

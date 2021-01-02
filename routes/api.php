@@ -19,5 +19,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::apiResource('student', StudentController::class);
+//student
 Route::post('login/student',[LoginController::class,'loginStudent']);
 Route::post('register/student',[LoginController::class,'registerStudent']);
+Route::post('forgetpassword/student',[LoginController::class,'forgetpasswordstudent']);
+Route::post('spreset',[LoginController::class,'spreset']);
+
+
+//teacher
+Route::post('login/teacher',[LoginController::class,'loginteacher']);
+Route::post('forgetpassord/teacher',[LoginController::class,'forgetpasswordteacher']);
+Route::post('tpreset',[LoginController::class,'tpreset']);
+
