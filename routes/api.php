@@ -31,3 +31,6 @@ Route::post('login/teacher',[LoginController::class,'loginteacher']);
 Route::post('forgetpassord/teacher',[LoginController::class,'forgetpasswordteacher']);
 Route::post('tpreset',[LoginController::class,'tpreset']);
 
+//rollcall
+Route::post('rollcall',[LoginController::class,'rollcall']);
+

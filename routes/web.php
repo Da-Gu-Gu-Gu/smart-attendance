@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Studentpasswordreset;
 use App\Models\Teacherpasswordreset;
+use App\Models\Rollcall;
+use App\Models\Attendance;
 use App\Http\Controllers\LoginController;
 
 /*
@@ -48,12 +50,48 @@ Route::get('student/password/reset/{token}',function(Request $request,$token){
 
 // middleware student
 Route::group(['middleware'=>['studentPage']], function () {
-    Route::view('/student/yourattendance','yourattendance');
+  
     Route::get('/student/logout',[LoginController::class,'student_logout']);
     Route::get('/student',[LoginController::class,'student']);
     Route::view('/student/scan','scan');
-});
+    Route::view('/student/attendance','attendance');
+    Route::get('/student/scan/{token}',function(Request $request,$token){
+        $checktoken=Rollcall::where('token',$token)->first(); //tid
+        $student=Student::where('email',session('semail'))->first();
+        if(empty($checktoken)){
+            return abort(404);
+        }
+        else{
+            if(time()-$checktoken->time>60){
+                $request->session()->put('attendanceinfo', 'Sorry, you miss your rollcall');         
+                return redirect('/student/attendance');
+            } 
+            elseif($student->year!=$checktoken->year){
+                $request->session()->put('attendanceinfo', 'You are not from '.$checktoken->year);         
+                return redirect('/student/attendance');
+            }elseif($student->major!=$checktoken->major){
+                $request->session()->put('attendanceinfo', 'You are not from '.$checktoken->major. ' major');
+                return redirect('/student/attendance');  
+            }
+            else{
+                $attendance=Attendance::create([
+                        'rollno'=>$student->rollno,
+                        'tid'=>$checktoken->tid,
+                        'subject'=>$checktoken->subject,
+                        'year'=>$student->year,
+                        'date'=>date('j-n-Y')
+            
+                ]);
+                $request->session()->put('attendanceinfo', 'Success');         
+                return redirect('/student/attendance');
+                
+                }
+            }
+            
+        
+    });
 
+});
 
 
 
@@ -74,8 +112,21 @@ Route::get('teacher/password/reset/{token}',function(Request $request,$token){
 //middleware teacher
 Route::group(['middleware' => ['teacherPage']], function () {
     Route::get('/teacher/logout',[LoginController::class,'teacher_logout']);
-    Route::view('/teacher','teacher');
+    Route::get('/teacher',[LoginController::class,'teacher']);
+    Route::get('/rollcall/{token}',function(Request $request,$token){
+        $checktoken=Rollcall::where('token',$token)->first(); //tid
+        if(empty($checktoken)){
+            return abort(404);
+        }
+        else{
+                $request->session()->put('rollcall-token', $token);
+                return view('qrcode');
+            
+        }
+    });
 });
+
+
 
 
 

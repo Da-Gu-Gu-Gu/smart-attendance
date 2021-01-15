@@ -14,6 +14,12 @@ use App\Models\Studentpasswordreset;
 use App\Models\Teacher;
 use App\Models\Teacherpasswordreset;
 
+//rollcall
+use App\Models\Rollcall;
+
+//attendance
+use App\Models\Attendance;
+
 class LoginController extends Controller
 {
     //loginstudent
@@ -104,8 +110,32 @@ class LoginController extends Controller
        
 
             $student=Student::where('email',session('semail'))->first();
+            $subjects=Attendance::where('rollno',$student->rollno)->get('subject');
+            $major=0;
+            $minor1=0;
+            $minor2=0;
+            $minor3=0;
+            foreach($subjects as $subject){
+                if( $subject->subject==$student->major){
+                    ++$major;
+                }
+                if( $subject->subject=='Minor 1'){
+                    ++$minor1;
+                }
+                if( $subject->subject=='Minor 2'){
+                    ++$minor2;
+                }
+                if( $subject->subject=='Minor 3'){
+                    ++$minor3;
+                }     
+        }
             $request->session()->put('profile_image', $student->img);
-            return view('student',['student'=>$student]);
+            $request->session()->put('smajor',$student->major);
+            $rollnos=Attendance::where('year',$student->year)->pluck('rollno');
+            $result=array_count_values($rollnos->toArray());
+            asort($result);
+            $Result=array_reverse($result);
+            return view('student',['student'=>$student,'major'=>$major,'minor1'=>$minor1,'minor2'=>$minor2,'minor3'=>$minor3,"leaderboard"=>$Result]);
     }
 
     // student logout
@@ -230,4 +260,41 @@ function tpreset(Request $request){
     return redirect('teacher');
  }
 
+ // teacher
+ function teacher(Request $request){
+    $teacher=Teacher::where('email',session('temail'))->first();
+    $request->session()->put('tprofile_image', $teacher->img);
+    $request->session()->put('tid', $teacher->tid);
+    return view('teacher',['teacher'=>$teacher]);
+}
+
+
+
+//rollcall
+function rollcall(Request $req){
+    $validator=Validator::make($req->all(),[
+        'year'=>'required',
+        'lifetime'=>'required',
+        'subject'=>'required',
+        'major'=>'required'
+    ]);
+    if($validator->passes()){
+                $token=Str::random(60);
+                $tid=session('tid');
+                Rollcall::create([
+                'tid'=>$tid,
+                'token'=>$token,
+                'time'=>time(),
+                'year'=>$req->year,
+                'lifetime'=>$req->lifetime,
+                'subject'=>$req->subject,
+                'major'=>$req->major
+                ]);
+               
+                return response()->json(['success'=>'success','token'=>$token], 200);
+            
+    }
+  
+
+}
 }
