@@ -15,7 +15,7 @@
             You're almost done!</p>
             <div>
                 <p style="color:white;font-size:18px;">This is your verification code to create your account!</p>
-                <center><h1 style="background-color: #6a8781;color:white;">{{ $verify_number  }}</h1></center>
+                <center><h1 style="background-color: #6a8781;color:white;">{{ $verify_number }}</h1></center>
             </div>
             <p style="padding-bottom:10px;">Thank you,<br>    
                qr-code attendence system

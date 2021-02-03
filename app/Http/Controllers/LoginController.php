@@ -108,7 +108,7 @@ class LoginController extends Controller
     // student
     function student(Request $request){
        
-
+              //leaderboard
             $student=Student::where('email',session('semail'))->first();
             $subjects=Attendance::where('rollno',$student->rollno)->get('subject');
             $major=0;
@@ -129,13 +129,21 @@ class LoginController extends Controller
                     ++$minor3;
                 }     
         }
+      
             $request->session()->put('profile_image', $student->img);
             $request->session()->put('smajor',$student->major);
             $rollnos=Attendance::where('year',$student->year)->pluck('rollno');
             $result=array_count_values($rollnos->toArray());
             asort($result);
             $Result=array_reverse($result);
-            return view('student',['student'=>$student,'major'=>$major,'minor1'=>$minor1,'minor2'=>$minor2,'minor3'=>$minor3,"leaderboard"=>$Result]);
+
+            
+            //chart
+            $dates=Attendance::where("rollno",$student->rollno)->pluck('date');
+            $chartdata=array_count_values($dates->toArray());
+           $chartdata= array_slice($chartdata,-5);//FOR 5 DAYS CHART DATA
+           
+            return view('student',['student'=>$student,'major'=>$major,'minor1'=>$minor1,'minor2'=>$minor2,'minor3'=>$minor3,"leaderboard"=>$Result,"chartdata"=>$chartdata]);
     }
 
     // student logout
@@ -265,7 +273,12 @@ function tpreset(Request $request){
     $teacher=Teacher::where('email',session('temail'))->first();
     $request->session()->put('tprofile_image', $teacher->img);
     $request->session()->put('tid', $teacher->tid);
-    return view('teacher',['teacher'=>$teacher]);
+
+    
+    $years=Rollcall::where('tid',$teacher->id)->pluck('year');  //classes
+    $classes=array_count_values($years->toArray());
+     
+    return view('teacher',['teacher'=>$teacher,'class'=>$classes]);
 }
 
 

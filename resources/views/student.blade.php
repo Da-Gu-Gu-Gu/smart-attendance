@@ -73,15 +73,15 @@
           <center>
             
                 <div id="header" class="d-flex justify-content-between">
-                    <a href="#" class="previous round" style="font-size: 40px;" id="pre">&#8249;</a>
+                    <a href="#" class="previous round" style="font-size: 40px;" id="pre" style="color:#d6b4f0 !important;">&#8249;</a>
                     <div class="d-flex pt-4">
                     <h1 class="text-center"><p id="month" class="text-info" style="font-size: 1rem;"></p>
                     <h2 class="text-success text-center" id="year" style="font-size:1rem;"></h2></h1>
                     </div>
-                    <a href="#" class="next round" style="font-size: 40px;" onclick="nextmonth();">&#8250;</a>
+                    <a href="#" class="next round" style="font-size: 40px;" onclick="nextmonth();" style="color:#d6b4f0 !important;">&#8250;</a>
                 </div>
                 <div id="weekdays">
-                    <ul class="d-flex  text-decoration-none list-unstyled bg-primary text-white">
+                    <ul class="d-flex  text-decoration-none list-unstyled  text-white" style="background-color:#a55cdd; ">
                         <li>Sun</li>
                         <li>Mon</li>
                         <li>Tue</li>
@@ -94,7 +94,7 @@
         
                    
         
-                    <div id="days" class=" row   pt-4 pb-2 pb-lg-0"></div>
+                    <div id="days" class=" row    pb-2 pb-lg-0"></div>
            
                 </center>
     </div>
@@ -194,6 +194,28 @@
 </table>
 </div>
 
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="calendar_event" tabindex="-1" aria-labelledby="calendar_eventLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn " data-dismiss="modal" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <script>
       
         let Chartt = document.getElementById('chart');
@@ -224,8 +246,11 @@ function leaderboard() {
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <script>
 
-
-        
+      
+        var labels=<?php echo collect($chartdata)->keys(); ?>;
+        console.log(labels);
+        var values=<?php echo collect($chartdata)->values(); ?>;
+        console.log(values);
 
         var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -235,12 +260,12 @@ function leaderboard() {
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+                labels: labels,
                 datasets: [{
                     
          
                     label: 'attendance',
-                    data: [12, 19, 3, 5, 2],
+                    data: values,
                  
                     borderColor: "#AF79DF",
             pointBorderWidth: 10,

@@ -30,12 +30,12 @@ Route::view('/student/forgot-password','student-forgotpassword');
 Route::view('/teacher/forgot-password','teacher-forgotpassword');
 Route::get('/verification',[LoginController::class,'verify']);
 
-Route::view('/aa','email/spr');
-Route::get('/test',function(){
-    $aa=urlencode('heinhtetaung@gmalil.com');
-    return dd($aa);
-});
-// Route::view('aa','email/spr');
+// Route::view('/aa','email/spr');
+// Route::get('/test',function(){
+//     $aa=urlencode('heinhtetaung@gmalil.com');
+//     return dd($aa);
+// });
+// Route::view('aa','email/email');
 Route::get('student/password/reset/{token}',function(Request $request,$token){
     $checktoken=Studentpasswordreset::where('token',$token)->get('rollno'); //rollno
     if(count($checktoken)<1){

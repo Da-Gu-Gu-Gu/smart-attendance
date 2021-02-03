@@ -79,8 +79,11 @@ function days() {
     for (let i = 0; i < day.getDate(); i++) {
         let br = document.createElement("br");
         let number = document.createElement("div");
+        number.setAttribute("class", "btn");
+        number.setAttribute("data-toggle", "modal");
+        number.setAttribute("data-target", "#calendar_event");
         number.setAttribute("id", (i + 1) + "-" + (currentMonth + 1) + "-" + currentYear);
-        number.setAttribute("onclick", "aa(this)");
+        // number.setAttribute("onclick", "aa(this)");
         number.setAttribute("date", (i + 1) + "-" + (currentMonth + 1) + "-" + currentYear);
         number.innerHTML = i + 1;
         if (currentDate - 1 == i) {
@@ -96,9 +99,9 @@ function days() {
 
 days();
 
-function aa(e) {
-    console.log(e.getAttribute("date"));
-    events[e.getAttribute("date")] = prompt("Add Event", '');
-    e.style.backgroundColor = '#' + Math.floor(Math.random() * 1000);
-    console.log('#' + Math.floor(Math.random() * 1000));
-}
+// function aa(e) {
+//     console.log(e.getAttribute("date"));
+//     events[e.getAttribute("date")] = prompt("Add Event", '');
+//     e.style.backgroundColor = '#' + Math.floor(Math.random() * 1000);
+//     console.log('#' + Math.floor(Math.random() * 1000));
+// }

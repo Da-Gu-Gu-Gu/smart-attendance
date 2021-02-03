@@ -78,7 +78,7 @@
                     <a href="#" class="next round" style="font-size: 40px;" onclick="nextmonth();">&#8250;</a>
                 </div>
                 <div id="weekdays">
-                    <ul class="d-flex  text-decoration-none list-unstyled bg-primary text-white">
+                    <ul class="d-flex  text-decoration-none list-unstyled  text-white" style="background-color: #ff7d7b;">
                         <li>Sun</li>
                         <li>Mon</li>
                         <li>Tue</li>
@@ -91,7 +91,7 @@
         
                    
         
-                    <div id="days" class=" row   pt-4 pb-2 pb-lg-0"></div>
+                    <div id="days" class=" row    pb-2 pb-lg-0"></div>
            
                 </center>
     </div>
@@ -102,16 +102,16 @@
         <p class="text-center font-weight-bold">CLASS RECORD</p>
         <div class="justify-content-between d-flex">
             <div class="col-4 text-center ">
-                20 <br>
+                {{$class['First Year']?? 0}} <br>
                 <small>First Year</small>
                
             </div>
             <div class="col-4 text-center ">
-                20 <br>
+                {{$class['Second Year']?? 0}} <br>
                 <small>Second Year</small>
             </div>
             <div class="col-4 text-center ">
-                20 <br>
+                {{$class['Third Year']?? 0}} <br>
                 <small>Third Year</small>
             </div>
         </div>
@@ -189,6 +189,28 @@
     </form>
       </center>
   </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="calendar_event" tabindex="-1" aria-labelledby="calendar_eventLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn " data-dismiss="modal" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
    <script src="{{asset('js/calendar.js')}}"></script> 
 
    <script>

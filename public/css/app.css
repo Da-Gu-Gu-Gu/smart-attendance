@@ -4,6 +4,20 @@
     box-sizing: border-box;
 }
 
+.back-to-top {
+    background-color: #ff007f;
+    /* z-index: 100; */
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+}
+
+.back-to-top i {
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     color: black;

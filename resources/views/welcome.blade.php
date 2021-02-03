@@ -96,6 +96,12 @@
    {{-- footer --}}
    <div id="footer" class="border w-100" style="height: 100vh;" >adsf</div>
  
+
+
+{{-- scroll-up --}}
+   <a id="back-to-top"  class="btn  back-to-top" role="button">
+       <i class="fas fa-chevron-up text-white" ></i>
+    </a>
 </body> 
 
 
@@ -103,6 +109,24 @@
 
 <script>
   AOS.init();
+
+  $(document).ready(function(){
+      $(window).scroll(function(){
+          if($(this).scrollTop()>50){
+              $('#back-to-top').fadeIn();
+          }else{
+              $('#back-to-top').fadeOut();
+          }
+      });
+
+      $('#back-to-top').click(function(){
+          $('body,html').animate({
+              scrollTop:0
+          },450);
+          return false;
+      });
+  })
+
 </script>
 
 
