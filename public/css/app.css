@@ -127,6 +127,9 @@ b {
     #m-nav {
         display: none;
     }
+    .snav-link {
+        display: none;
+    }
     #content {
         height: 100vh;
     }

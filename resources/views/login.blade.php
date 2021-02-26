@@ -48,7 +48,7 @@
 
                     <button type="submit" class="btn  text-white col-12" id="ssubmit">
                       <div class="spinner-border spinner-border-sm text-light " id="sloading-icon" style="opacity: 0;" role="status" style="vertical-align: text-top"> </div>
-                      <span class="sbtn_text text-white " style="vertical-align: middle;">Login</span>
+                      <span class="sbtn_text text-white " style="vertical-align: middle;"> @lang('lang.login') </span>
                     </button>
                 
                       <a href="/student/forgot-password" class="text-decoration-none"><small class="form-text text-muted text-center mt-3">forgot password ?</small> </a>
@@ -76,7 +76,7 @@
                     </div>
                     <button type="submit" class="btn  text-white col-12 text-weight-bold" id="tsubmit" style="background-color: tomato;">
                       <div class="spinner-border spinner-border-sm text-light " id="tloading-icon" style="opacity: 0;" role="status" style="vertical-align: text-top;"> </div>
-                      <span class="tbtn_text text-white " style="vertical-align: middle;">Login</span>
+                      <span class="tbtn_text text-white " style="vertical-align: middle;"> @lang('lang.login') </span>
                     </button>
               
                     <a href="/teacher/forgot-password" class="text-decoration-none"><small class="form-text text-muted text-center mt-3 cursor">forgot password ?</small> </a>

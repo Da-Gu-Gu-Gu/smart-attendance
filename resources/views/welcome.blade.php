@@ -21,7 +21,7 @@
                 "Present Sir" <br>
                 For the attendence  
         </div>
-   <a href="/login"> <button class="btn btn-light text-danger mt-2 col-lg-3"> Login    &nbsp;&nbsp;<i class="fas fa-arrow-right "></i></button></a>
+   <a href="/login"> <button class="btn btn-light text-danger mt-2 col-lg-3"> @lang('lang.login')   &nbsp;&nbsp;<i class="fas fa-arrow-right "></i></button></a>
         
     </div>
 
@@ -31,7 +31,7 @@
     </div>
    {{-- about --}}
    <div id="about" class="container  mt-5">
-       <h3 class="text-center" data-aos="fade-down">ABOUT</h3>
+       <h3 class="text-center" data-aos="fade-down">@lang('lang.ABOUT')</h3>
        <div id="about-text" class="bd-callout-info my-5">
             <p>This system is attendece with <span> qr-code</span> system . I hope this can reduce a lot of times , papers and more easier by scanning <span>qr-code</span> . And there have two main parts, <b>Teacher </b> and <b>Student</b>.</p> 
                 
@@ -63,7 +63,7 @@
         </svg>
     </div>
     <br><br>
-    <h3 class="container text-white py-5 a" data-aos="fade-down">How-to-Use</h3>
+    <h3 class="container text-white py-5 a" data-aos="fade-down">@lang('lang.HOW-TO-USE')</h3>
     <center>
     <video  class="col-lg-6 col-md-8 col-12 my-5" controls>
         <source src="{{asset('img/aa.mp4')}}" type="video/mp4">
@@ -76,7 +76,7 @@
 
 {{-- contact --}}
    <div id="contact">
-    <h3 class="text-center  py-5 " data-aos="fade-down">CONTACT</h3>
+    <h3 class="text-center  py-5 " data-aos="fade-down">@lang('lang.CONTACT')</h3>
 
     <form class="container">
         <div class="form-group">

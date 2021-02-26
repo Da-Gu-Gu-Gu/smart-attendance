@@ -10,27 +10,32 @@
         {{-- l-nav --}}
 
         <li class="nav-item" id="l-nav">
-            <a class="nav-link" href="/">HOME</a>
+            <a class="nav-link" href="/">@lang('lang.HOME')</a>
           </li>
       
           <li class="nav-item" id="l-nav">
-            <a class="nav-link" href="#">ABOUT</a>
+            <a class="nav-link" href="#">@lang('lang.ABOUT')</a>
           </li>
           <li class="nav-item" id="l-nav">
-            <a class="nav-link" href="#">HOW-TO-USE</a>
+            <a class="nav-link" href="#">@lang('lang.HOW-TO-USE')</a>
           </li>
           <li class="nav-item" id="l-nav" >
-            <a class="nav-link" href="#">CONTACT</a>
+            <a class="nav-link" href="#">@lang('lang.CONTACT')</a>
           </li>
           <li class="nav-item dropdown" id="l-nav">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ asset('img/british.svg') }}" width="20" height="25" alt="">
+            <a class="nav-link dropdown-toggle " href="/lang/en" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{{ asset('img/british.svg') }}" class="selected" width="20" height="25" alt="">
             </a>
             <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">
+
+              <a class="dropdown-item" href="/lang/en" onclick="language({{ asset('img/british.svg') }});">
+                <img src="{{ asset('img/british.svg') }}" width="20" height="25" alt="">
+              </a>
+
+              <a class="dropdown-item" href="/lang/mm" onclick="language({{ asset('img/index.svg') }});">
                 <img src="{{ asset('img/index.png') }}" width="20" height="20" alt="">
               </a>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="/lang/jp" onclick="language({{ asset('img/japan.svg') }});">
                 <img src="{{ asset('img/japan.png') }}" class="border" width="20" height="20" alt="">
               </a>
           
@@ -42,35 +47,40 @@
           {{-- m-nav --}}
      
        
-         <div class="col-9 " id="m-nav">
+        <div class="col-9 " id="m-nav">
           <button class="btn border-0  float-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             <img src="https://img.icons8.com/metro/26/000000/menu.png" />
           </button>
         </div>
-          <div class="collapse  col-12 text-center" id="collapseExample" >
+
+          <div class="collapse  col-12 text-center snav-link" id="collapseExample"  >
           <li class="nav-item">
-            <a class="nav-link" href="/">HOME</a>
+            <a class="nav-link" href="/">@lang('lang.HOME')</a>
           </li>
       
           <li class="nav-item">
-            <a class="nav-link" href="#">ABOUT</a>
+            <a class="nav-link" href="#">@lang('lang.ABOUT')</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">HOW-TO-USE</a>
+            <a class="nav-link" href="#">@lang('lang.HOW-TO-USE')</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">CONTACT</a>
+            <a class="nav-link" href="#">@lang('lang.CONTACT')</a>
           </li>
           <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ asset('img/british.svg') }}" width="20" height="25" alt="">
+            <a class="nav-link dropdown-toggle " href="/lang/en" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="" class="selected" width="20" height="25" alt="">
             </a>
             <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">
-                <img src="{{ asset('img/index.png') }}" width="20" height="20" alt="">
+              <a class="dropdown-item" href="/lang/en" >
+                <img src="{{ asset('img/british.svg') }}" onclick="language({{ asset('img/british.svg') }});" width="20" height="25" alt="">
               </a>
-              <a class="dropdown-item" href="#">
-                <img src="{{ asset('img/japan.png') }}" class="border border-light" width="20" height="20" alt="">
+
+              <a class="dropdown-item" href="/lang/mm" >
+                <img src="{{ asset('img/index.png') }}" width="20" height="20" alt="" onclick="language({{ asset('img/index.png') }});">
+              </a>
+              <a class="dropdown-item" href="/lang/jp" onclick="language({{asset('img/japan.png')}})">
+                <img src="{{ asset('img/japan.png') }}" class="border border-light" width="20" height="20" alt="" onclick="language({{ asset('img/japan.png') }});">
               </a>
             </div>
           </li>
@@ -78,4 +88,14 @@
 </div>
 {{-- end m-nav --}}
       </nav>
+
+      {{-- //do something --}}
+<script >
+  
+   function language(asd){
+     alert(asd);
+     document.getElementsByClassName('selected').src=e;
+     console.log("df"+asd);
+   }
+</script>
 </div>

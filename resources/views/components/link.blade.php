@@ -34,7 +34,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
      .my-class .bar {
      z-index: 99999999999;
      height: 5px;
-     background-image: linear-gradient(to right top, #d6b4f0, #ea99db, #fd7cb7, #ff5f86, #ff4c4c);
+     background-color:black;
+     /* background-image: linear-gradient(to right top, #d6b4f0, #ea99db, #fd7cb7, #ff5f86, #ff4c4c); */
 }
 </style>
 <div class="nanobar my-class" id="my-id" style="position: fixed;z-index:199999;top:0;">

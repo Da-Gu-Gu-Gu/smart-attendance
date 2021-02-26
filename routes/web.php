@@ -8,6 +8,7 @@ use App\Models\Teacherpasswordreset;
 use App\Models\Rollcall;
 use App\Models\Attendance;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LocalizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,10 @@ use App\Http\Controllers\LoginController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//localization
+Route::get('lang/{locale}',[LocalizationController::class,'index']);
+
 Route::view('/test','email/email');
 Route::view('/login','login');
 
@@ -62,7 +67,20 @@ Route::group(['middleware'=>['studentPage']], function () {
             return abort(404);
         }
         else{
-            if(time()-$checktoken->time>60){
+            switch($checktoken->lifetime){
+                case '3 Min':
+                    $lifetime=180;
+                    break;
+                case '5 Min':
+                    $lifetime=300;
+                    break;
+                case '10 Min':
+                    $lifetime=600;
+                    break;
+                default:
+                    $lifetime=180;
+            }
+            if(time()-$checktoken->time>$lifetime){
                 $request->session()->put('attendanceinfo', 'Sorry, you miss your rollcall');         
                 return redirect('/student/attendance');
             } 

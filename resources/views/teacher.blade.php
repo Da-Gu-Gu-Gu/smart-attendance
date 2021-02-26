@@ -246,6 +246,22 @@ form.onsubmit=function(e){
     let subject=document.getElementById('subject').value;
     let lifetime=document.getElementById('lifetime').value;
     let major=document.getElementById('major').value;
+
+// switch(lifetime){
+//     case '3 Min':
+//         lifetime=180;
+//         break;
+//     case '5 Min':
+//         lifetime=300;
+//         break;
+//     case '10 Min':
+//         lifetime=600;
+//         break;
+//     default:
+//         lifetime=180;
+// }
+// console.log(lifetime +"hadha")
+
     axios.post('/api/rollcall',{
         'year':year,
         'subject':subject,
