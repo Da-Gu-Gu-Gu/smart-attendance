@@ -63,9 +63,22 @@ Route::group(['middleware'=>['studentPage']], function () {
     Route::get('/student/scan/{token}',function(Request $request,$token){
         $checktoken=Rollcall::where('token',$token)->first(); //tid
         $student=Student::where('email',session('semail'))->first();
+
+        print($student->rollno);
+        $morethanone=Attendance::where('rollno',$student->rollno)->get('token'); //more than one time roll call?
+        // print($morethanone[key($morethanone)]);
+       $rollcallcheck=$morethanone->toArray();
+        $aa=array_slice($rollcallcheck,-1);
+        if($aa[0]['token']==$checktoken->token){
+            echo "tuu ny tl";
+            $request->session()->put('attendanceinfo', 'You already get attendance');         
+            return redirect('/student/attendance');
+        }
+
         if(empty($checktoken)){
             return abort(404);
         }
+        // if()
         else{
             switch($checktoken->lifetime){
                 case '3 Min':
@@ -97,7 +110,8 @@ Route::group(['middleware'=>['studentPage']], function () {
                         'tid'=>$checktoken->tid,
                         'subject'=>$checktoken->subject,
                         'year'=>$student->year,
-                        'date'=>date('j-n-Y')
+                        'date'=>date('j-n-Y'),
+                        'token'=>$token                    //new edit token for one time roll call
             
                 ]);
                 $request->session()->put('attendanceinfo', 'Success');         

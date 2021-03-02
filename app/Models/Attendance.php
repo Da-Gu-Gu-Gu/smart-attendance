@@ -9,5 +9,5 @@ class Attendance extends Model
 {
     use HasFactory;
     public $timestamps=false;
-    protected $fillable=['tid','rollno','subject','date','year'];
+    protected $fillable=['tid','rollno','subject','date','year','token'];
 }

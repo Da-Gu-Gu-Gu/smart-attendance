@@ -24,18 +24,18 @@
           </li>
           <li class="nav-item dropdown" id="l-nav">
             <a class="nav-link dropdown-toggle " href="/lang/en" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ asset('img/british.svg') }}" class="selected" width="20" height="25" alt="">
+                <img src="" class="selected" width="20" height="25" alt="">
             </a>
             <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
 
-              <a class="dropdown-item" href="/lang/en" onclick="language({{ asset('img/british.svg') }});">
+              <a class="dropdown-item" href="/lang/en" onclick="language("{{ asset('img/british.svg') }}");">
                 <img src="{{ asset('img/british.svg') }}" width="20" height="25" alt="">
               </a>
 
-              <a class="dropdown-item" href="/lang/mm" onclick="language({{ asset('img/index.svg') }});">
+              <a class="dropdown-item" href="/lang/mm" onclick="language("{{ asset('img/index.svg') }}");">
                 <img src="{{ asset('img/index.png') }}" width="20" height="20" alt="">
               </a>
-              <a class="dropdown-item" href="/lang/jp" onclick="language({{ asset('img/japan.svg') }});">
+              <a class="dropdown-item" href="/lang/jp" onclick="language("{{ asset('img/japan.svg') }}");">
                 <img src="{{ asset('img/japan.png') }}" class="border" width="20" height="20" alt="">
               </a>
           
@@ -73,13 +73,13 @@
             </a>
             <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/lang/en" >
-                <img src="{{ asset('img/british.svg') }}" onclick="language({{ asset('img/british.svg') }});" width="20" height="25" alt="">
+                <img src="{{ asset('img/british.svg') }}" onclick="language("{{ asset('img/british.svg') }}");" width="20" height="25" alt="">
               </a>
 
               <a class="dropdown-item" href="/lang/mm" >
-                <img src="{{ asset('img/index.png') }}" width="20" height="20" alt="" onclick="language({{ asset('img/index.png') }});">
+                <img src="{{ asset('img/index.png') }}" width="20" height="20" alt="" onclick="language("{{ asset('img/index.png') }}");">
               </a>
-              <a class="dropdown-item" href="/lang/jp" onclick="language({{asset('img/japan.png')}})">
+              <a class="dropdown-item" href="/lang/jp" onclick="language("{{asset('img/japan.png')}}")">
                 <img src="{{ asset('img/japan.png') }}" class="border border-light" width="20" height="20" alt="" onclick="language({{ asset('img/japan.png') }});">
               </a>
             </div>
@@ -90,12 +90,5 @@
       </nav>
 
       {{-- //do something --}}
-<script >
-  
-   function language(asd){
-     alert(asd);
-     document.getElementsByClassName('selected').src=e;
-     console.log("df"+asd);
-   }
-</script>
+
 </div>

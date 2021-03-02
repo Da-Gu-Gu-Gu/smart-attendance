@@ -108,6 +108,14 @@
 
 
 <script>
+
+// flag change foh loke ya ml
+// function language(asd){
+//      alert(asd);
+//      document.getElementsByClassName('selected').src=asd;
+//      console.log(asd);
+//    }
+
   AOS.init();
 
   $(document).ready(function(){

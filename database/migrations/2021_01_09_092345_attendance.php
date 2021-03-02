@@ -21,6 +21,7 @@ class Attendance extends Migration
             $table->string('subject');
             $table->string('year');
             $table->string('date');
+            $table->string('token');
         });
     }
 
