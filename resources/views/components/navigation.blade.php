@@ -14,13 +14,13 @@
           </li>
       
           <li class="nav-item" id="l-nav">
-            <a class="nav-link" href="#">@lang('lang.ABOUT')</a>
+            <a class="nav-link" href="/#about">@lang('lang.ABOUT')</a>
           </li>
           <li class="nav-item" id="l-nav">
-            <a class="nav-link" href="#">@lang('lang.HOW-TO-USE')</a>
+            <a class="nav-link" href="/#how-to-use">@lang('lang.HOW-TO-USE')</a>
           </li>
           <li class="nav-item" id="l-nav" >
-            <a class="nav-link" href="#">@lang('lang.CONTACT')</a>
+            <a class="nav-link" href="/#contact">@lang('lang.CONTACT')</a>
           </li>
           <li class="nav-item dropdown" id="l-nav">
             <a class="nav-link dropdown-toggle " href="/lang/en" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,18 +54,18 @@
         </div>
 
           <div class="collapse  col-12 text-center snav-link" id="collapseExample"  >
-          <li class="nav-item">
+          <li class="nav-item" >
             <a class="nav-link" href="/">@lang('lang.HOME')</a>
           </li>
       
           <li class="nav-item">
-            <a class="nav-link" href="#">@lang('lang.ABOUT')</a>
+            <a class="nav-link" href="/#about">@lang('lang.ABOUT')</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">@lang('lang.HOW-TO-USE')</a>
+            <a class="nav-link" href="/#how-to-use">@lang('lang.HOW-TO-USE')</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">@lang('lang.CONTACT')</a>
+            <a class="nav-link" href="/#contact">@lang('lang.CONTACT')</a>
           </li>
           <li class="nav-item dropdown ">
             <a class="nav-link dropdown-toggle " href="/lang/en" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -22,6 +22,8 @@ use App\Http\Controllers\LocalizationController;
 */
 
 Route::get('/', function () {
+    $locale=App::currentLocale();
+    session()->put('locale', $locale); 
     return view('welcome');
 });
 

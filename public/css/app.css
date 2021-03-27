@@ -42,13 +42,19 @@ span {
 }
 
 b {
-    color: #FB5A5A;
+    color: #ff007f;
 }
 
 #nav {
     position: sticky;
     top: 0;
     z-index: 1;
+}
+
+#l-nav a:hover,
+.snav-link a:hover {
+    color: #ff007f;
+    font-weight: bolder;
 }
 
 #content {
@@ -87,7 +93,7 @@ b {
     border-right: none;
     border-bottom: none;
     border-left-width: .4rem;
-    border-left-color: #FF4C4C;
+    border-left-color: #ff007f;
 }
 
 .bd-callout-info {
@@ -102,6 +108,30 @@ b {
 #about-text p {
     font-size: 1.5rem;
     padding: 1.24rem;
+}
+
+#teacher {
+    border-top: .4em solid #FF4C4C;
+    border-bottom: .4em solid #FF4C4C;
+    transition: all 0.3s;
+}
+
+#teacher:hover {
+    border: none;
+    border-left: .4em solid #FF4C4C;
+    border-right: .4em solid #FF4C4C;
+}
+
+#student {
+    border-top: .4em solid #af79df;
+    border-bottom: .4em solid #AF79DF;
+    transition: all 0.3s;
+}
+
+#student:hover {
+    border: none;
+    border-left: .4em solid #af79df;
+    border-right: .4em solid #AF79DF;
 }
 
 

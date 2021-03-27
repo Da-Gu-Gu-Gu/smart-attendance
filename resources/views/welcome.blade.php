@@ -21,7 +21,7 @@
                 "Present Sir" <br>
                 For the attendence  
         </div>
-   <a href="/login"> <button class="btn btn-light text-danger mt-2 col-lg-3"> @lang('lang.login')   &nbsp;&nbsp;<i class="fas fa-arrow-right "></i></button></a>
+   <a href="/login"> <button class="btn btn-light  mt-2 col-lg-3" style="color:#ff007f"> @lang('lang.login')   &nbsp;&nbsp;<i class="fas fa-arrow-right "></i></button></a>
         
     </div>
 
@@ -33,37 +33,53 @@
    <div id="about" class="container  mt-5">
        <h3 class="text-center" data-aos="fade-down">@lang('lang.ABOUT')</h3>
        <div id="about-text" class="bd-callout-info my-5">
-            <p>This system is attendece with <span> qr-code</span> system . I hope this can reduce a lot of times , papers and more easier by scanning <span>qr-code</span> . And there have two main parts, <b>Teacher </b> and <b>Student</b>.</p> 
+            <p>This system is smart attendece system by scanning the <span> qr-code</span>  . I hope this can reduce a lot of times , papers and more easier . And there have two main parts, <b>Teacher </b> and <b>Student</b>.</p> 
                 
-        </div>   
-        <div class="row justify-content-around my-lg-5 pt-lg-5" style="overflow-x: hidden">
-            <section id="teacher" class="col-md-5 col-lg-5 shadow p-4 mb-5 "  data-aos="zoom-out-left"
+        </div>  
+        <center>
+        <div class="row  container justify-content-around my-lg-5 pt-lg-5" style="overflow-x: hidden">
+            <section id="teacher" class=" col-md-5 col-lg-4 shadow p-4 mb-5 "  data-aos="zoom-out-left"
            >
-                <h5 class="mb-4 ">Teacher</h5>
-                <h6>Teacher generates qr code as roll-call -form.
-                    She can also print roll-call list with pdf format.</h6>
+                <h4 class="mb-4 text-center">Teacher</h4>
+
+                <ul>
+                    <li class="pb-3 ">Generate Qr-code</li>
+                    <li class="pb-3">Calendar Schedule</li>
+                    <li class="pb-3">View Student'attendance</li>
+                   <li class="pb-3">Create Assignment</li>
+                 
+              
+                
+                </ul>
+                
             </section>
-            <section id="student" class="col-md-5 col-lg-5 shadow p-4  mb-5 "  data-aos="zoom-out-right"
+            <section id="student" class="col-md-5 col-lg-4 shadow p-4  mb-5 "  data-aos="zoom-out-right"
            >
-                <h5 class="mb-4">Student</h5>
-                <h6>Teacher generates qr code as roll-call -form.
-                    She can also print roll-call list with pdf format.</h6>
+                <h4 class="mb-4 text-center">Student</h4>
+                <ul>
+                    <li class="pb-3">Scan Qr-code </li>
+                    <li class="pb-3">Calendar Schedule</li>
+                    <li class="pb-3">Attendance Leaderboard</li>
+                    <li class="pb-3">Attendance Chart</li>
+                 
+                </ul>
 
             </section>
         </div> 
+    </center> 
    </div>
 
 
 {{-- how-to-use --}}
 
 <div  id="how-to-use" >
-    <div class="custom-shape-divider-top-1606713114">
+    {{-- <div class="custom-shape-divider-top-1606713114">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill"></path>
         </svg>
-    </div>
+    </div> --}}
     <br><br>
-    <h3 class="container text-white py-5 a" data-aos="fade-down">@lang('lang.HOW-TO-USE')</h3>
+    <h3 class="container text-white  a" data-aos="fade-down">@lang('lang.HOW-TO-USE')</h3>
     <center>
     <video  class="col-lg-6 col-md-8 col-12 my-5" controls>
         <source src="{{asset('img/aa.mp4')}}" type="video/mp4">
