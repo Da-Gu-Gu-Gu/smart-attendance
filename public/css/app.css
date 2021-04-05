@@ -7,6 +7,7 @@
 .back-to-top {
     background-color: #ff007f;
     /* z-index: 100; */
+    opacity: 0.8;
     position: fixed;
     bottom: 25px;
     right: 25px;
@@ -134,6 +135,26 @@ b {
     border-right: .4em solid #AF79DF;
 }
 
+#hover {
+    transform-style: preserve-3d;
+    transform: perspective(2000px);
+}
+
+#hover i,
+#hover p {
+    transform: translateZ(40px);
+}
+
+#hover:hover {
+    color: #ff007f;
+    cursor: pointer;
+}
+
+#benefit:hover {
+    color: #5754FF;
+    cursor: pointer;
+}
+
 
 /* how to use */
 
@@ -160,14 +181,14 @@ b {
     .snav-link {
         display: none;
     }
-    #content {
-        height: 100vh;
-    }
 }
 
 @media(max-width:1024px) {
     #ltext {
         display: none;
+    }
+    #content {
+        height: 50vh;
     }
 }
 

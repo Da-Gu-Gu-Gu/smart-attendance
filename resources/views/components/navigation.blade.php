@@ -73,13 +73,13 @@
             </a>
             <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/lang/en" >
-                <img src="{{ asset('img/en.png') }}" onclick="language();" width="20" height="25" alt="">
+                <img src="{{ asset('img/en.png') }}"  width="20" height="25" alt="">
               </a>
 
               <a class="dropdown-item" href="/lang/mm" >
-                <img src="{{ asset('img/mm.png') }}" width="20" height="20" alt="" onclick="language();">
+                <img src="{{ asset('img/mm.png') }}" width="20" height="20" alt="" >
               </a>
-              <a class="dropdown-item" href="/lang/jp" onclick="language("{{asset('img/japan.png')}}")">
+              <a class="dropdown-item" href="/lang/jp" >
                 <img src="{{ asset('img/jp.png') }}" class="border border-light" width="20" height="20" alt="" onclick="language();">
               </a>
             </div>

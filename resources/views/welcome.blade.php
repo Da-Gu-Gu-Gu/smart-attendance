@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
+{{-- icon --}}
+<link rel="icon" href="https://i.ibb.co/ZzqN21h/Group-1-1.png" type="image/png" >
     <x-link/>
-    <title>UCSY</title>
+    <title>Smart Attendance</title>
 </head>
 <body>
  
@@ -18,7 +20,7 @@
         <div id="content-text" >
         <div class="bd-callout bd-callout-red animate__animated animate__lightSpeedInRight">
                         You No need to shout <br>
-                "Present Sir" <br>
+                <b>"Present Sir"</b> <br>
                 For the attendence  
         </div>
    <a href="/login"> <button class="btn btn-light  mt-2 col-lg-3" style="color:#ff007f"> @lang('lang.login')   &nbsp;&nbsp;<i class="fas fa-arrow-right "></i></button></a>
@@ -37,35 +39,96 @@
                 
         </div>  
         <center>
-        <div class="row  container justify-content-around my-lg-5 pt-lg-5" style="overflow-x: hidden">
-            <section id="teacher" class=" col-md-5 col-lg-4 shadow p-4 mb-5 "  data-aos="zoom-out-left"
+            <h5 class=" container text-left ml-md-4 ml-lg-5"  style="color:#ff007f;border-left:2px solid #ff007f;">Features</h5>
+        <div class="row  container justify-content-around  " style="overflow-x: hidden">
+   
+            <section id="hover" class="col-md-3 col-lg-3 shadow p-4 py-2 mb-5 "  data-aos="zoom-out-left"
            >
-                <h4 class="mb-4 text-center">Teacher</h4>
-
-                <ul>
-                    <li class="pb-3 ">Generate Qr-code</li>
-                    <li class="pb-3">Calendar Schedule</li>
-                    <li class="pb-3">View Student'attendance</li>
-                   <li class="pb-3">Create Assignment</li>
-                 
-              
-                
-                </ul>
+            <i class="fas fa-qrcode" style="font-size:2.8rem;"></i>
+             <p class="mt-1">Qr-Code</p>
                 
             </section>
-            <section id="student" class="col-md-5 col-lg-4 shadow p-4  mb-5 "  data-aos="zoom-out-right"
+              <section id="hover" class="col-md-3  col-lg-3 shadow p-4 py-2 mb-5 "  data-aos="zoom-out-right"
            >
-                <h4 class="mb-4 text-center">Student</h4>
-                <ul>
-                    <li class="pb-3">Scan Qr-code </li>
-                    <li class="pb-3">Calendar Schedule</li>
-                    <li class="pb-3">Attendance Leaderboard</li>
-                    <li class="pb-3">Attendance Chart</li>
-                 
-                </ul>
+           
+            <i class="far fa-calendar-alt" style="font-size:2.8rem;"></i>
+             <p class="mt-1">Schedule</p>
+                
+            </section>
+            <section  id="hover" class="col-md-3  col-lg-3 shadow p-4  py-2 mb-5 "  data-aos="zoom-out-left"
+           >
+                <i class="fas fa-print" style="font-size:2.8rem;"></i>
+                 <p class="mt-1">Print</p>
+         
 
             </section>
-        </div> 
+</div>
+{{-- second --}}
+    <div class="row  container justify-content-around  " style="overflow-x: hidden">
+             <section  id="hover" class="col-md-3  col-lg-3 shadow p-4 py-2 mb-5 "  data-aos="zoom-out-right"
+           >
+            <i class="far fa-chart-bar" style="font-size:2.8rem;"></i>
+             <p class="mt-1">Attendance Chart</p>
+                
+            </section>
+              <section id="hover" class="col-md-3   col-lg-3 shadow p-4 py-2 mb-5 "  data-aos="zoom-out-left"
+           >
+         
+            <i class="fas fa-book" style="font-size:2.8rem;"></i>
+             <p class="mt-1">Assignment</p>
+                
+            </section>
+            <section id="hover" class="col-md-3 col-lg-3 shadow p-4 py-2 mb-5 "  data-aos="zoom-out-right"
+           >
+                <i class="fas fa-medal" style="font-size:2.8rem;"></i>
+                <p class="mt-1">Attendance Leaderboard</p>
+         
+
+            </section>
+        </div>
+        
+        <h5 class=" container text-left ml-md-4 ml-lg-5 mt-auto"  style="color:#5754FF;border-left:2px solid #5754FF;">Benefits</h5>
+
+            <div class="row container mt-5 justify-content-between" style="overflow-x:hidden ">
+                <section id="benefit" class="row shadow p-4 py-2 mb-5  col-lg-6"  data-aos="zoom-out-left"
+                >
+                     <i class="fas fa-tachometer-alt"style="font-size:2.8rem;width:20%;"></i>
+                     <div class="text-left" style="width:80%;">
+                     <p class="mb-0">Faster</p>
+                     <small style="color:#777777;">You can get attendence in seconds.</small>
+                    </div>
+     
+                 </section>
+                 <section id="benefit" class="row shadow p-4 py-2 mb-5  col-lg-6    "  data-aos="zoom-out-right"
+                 >
+                      <i class="fas fa-dollar-sign" style="font-size:2.8rem;width:20%;"></i>
+                      <div class="text-left" style="width:80%;">
+                      <p class="mb-0">Reduce</p>
+                      <small style="color:#777777;">Reduce a lot of times and papers.</small>
+                     </div>
+      
+                  </section>
+                  <section id="benefit" class="row shadow p-4 py-2 mb-5  col-lg-6"  data-aos="zoom-out-left"
+                  >
+                       <i  class="fas fa-server" style="font-size:2.8rem;width:20%;"></i>
+                       <div class="text-left" style="width:80%;">
+                       <p class="mb-0">Data</p>
+                       <small style="color:#777777;">Data are permanent</small>
+                      </div>
+       
+                   </section>
+
+                   <section id="benefit" class="row shadow p-4 py-2 mb-5  col-lg-6"  data-aos="zoom-out-right"
+                  >
+                       <i   class="far fa-eye"style="font-size:2.8rem;width:20%;"></i>
+                       <div class="text-left" style="width:80%;">
+                       <p class="mb-0">Visibility</p>
+                       <small style="color:#777777;">You can see all of your attendece data</small>
+                      </div>
+       
+                   </section>
+            </div>
+    
     </center> 
    </div>
 
@@ -122,15 +185,29 @@
 
 
 
+<script type="text/javascript">
+	VanillaTilt.init(document.querySelector("#hover"), {
+		max: 25,
+		speed: 400
+	});
+	
+	//It also supports NodeList
+	VanillaTilt.init(document.querySelectorAll("#hover"));
+
+    VanillaTilt.init(document.querySelector("#benefit"), {
+		max: 25,
+		speed: 400
+	});
+	
+	//It also supports NodeList
+	VanillaTilt.init(document.querySelectorAll("#benefit"));
+</script>
+
+
 
 <script>
 
-// flag change foh loke ya ml
-// function language(asd){
-//      alert(asd);
-//      document.getElementsByClassName('selected').src=asd;
-//      console.log(asd);
-//    }
+
 
   AOS.init();
 

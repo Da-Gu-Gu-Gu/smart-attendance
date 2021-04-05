@@ -26,6 +26,10 @@
        
 
     }
+    ul li{
+        display: inline;
+        list-style: none;
+    }
    .background{
        width:100%;
        height: 100%;
@@ -37,6 +41,18 @@
    }
    #scan{
        border-radius: 10px;
+   }
+   #attendence-list{
+       display: none;
+   }
+   #list:hover{
+       cursor: pointer;
+       width:111%;
+       height: 101%;
+       transition: all 0.3s;
+   }
+   .form-control{
+       outline: none;
    }
  
 </style>
@@ -98,6 +114,9 @@
     </div>
     </div>
 
+
+   
+
     <div id="attendance-record" class=" container shadow-lg text-white  py-2">
         <p class="text-center font-weight-bold">CLASS RECORD</p>
         <div class="justify-content-between d-flex">
@@ -147,7 +166,7 @@
             
           </div>
           <div  id="leaderboard" class="py-2 col-6" onclick="leaderboard();">
-              <img src="https://img.icons8.com/ios/30/000000/leaderboard.png" /><br>
+            <i class="fas fa-user-friends text-dark" style="font-size: 25px;"></i><br>
               
           </div>
       </div>
@@ -190,7 +209,35 @@
       </center>
   </div>
 
+{{-- attendence list --}}
+<div class="container my-5" id="attendence-list" >
+    <input type="text" class="form-control my-4 col-lg-3 col-md-4 col-5" placeholder="roll no" onkeyup="filter(this)" style="border-radius: 30px;">
+    <center>
+  <div class=" row justify-content-between"  id="stu_list">
 
+       
+            @foreach ($list as $stu)
+            <section class="col-lg-4 col-md-6 shadow  pt-3 pb-2 px-2 mb-3 row justify-content-around" style="border-radius:15px;" id="list" data_rollno="{{$stu['rollno']}}" >
+            <img src="{{asset('uploads/student_image/')}}<?php echo '/'.$stu['profile'];?>"  width="50px" height="50px" style="border-radius: 100%"; alt="">
+
+            <div >
+                <p class="mb-0 text-left" >{{$stu['rollno']}}</p>
+                <ul style="color:#777777">
+                    <li><small>{{$stu['major']}} :<span style="color:red"> {{$stu['Major']}}</span>,</small></li>
+                    <li ><small>Minor 1 :  <span style="color:red">{{$stu['Minor 1']}}</span>,</small></li>
+
+                    <li><small>Minor 2 :  <span style="color:red">{{$stu['Minor 2']}}</span>,</small></li>
+                    <li ><small>Minor 3 :  <span style="color:red">{{$stu['Minor 3']}}</span></small></li>
+                </ul>
+            </div>
+
+        </section>
+            @endforeach
+        
+
+  </div>
+</center>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="calendar_event" tabindex="-1" aria-labelledby="calendar_eventLabel" aria-hidden="true">
@@ -211,13 +258,25 @@
     </div>
   </div>
 
+
    <script src="{{asset('js/calendar.js')}}"></script> 
+
+
+   <script type="text/javascript">
+	VanillaTilt.init(document.querySelector("#list"), {
+		max: 50,
+		speed: 500
+	});
+	
+	//It also supports NodeList
+	VanillaTilt.init(document.querySelectorAll("#list"));
+</script>
 
    <script>
     let Chartt = document.getElementById('chart');
 let Leaderboard = document.getElementById('leaderboard');
-// let ad = document.getElementById('myChart');
-// let table = document.getElementById("leadertable");
+let rollcall= document.getElementById('rollcall');
+let attendence_list = document.getElementById("attendence-list");
 function changemajor(e){
     document.getElementById('change-major').innerHTML=e.value;
 }
@@ -225,14 +284,14 @@ function changemajor(e){
 function chart() {
 
 Chartt.classList.add("left");
-// ad.style.display = "block";
-// table.style.display = "none";
+rollcall.style.display = "block";
+attendence_list.style.display = "none";
 Leaderboard.classList.remove("right");
 }
 
 function leaderboard() {
-// table.style.display = "block";
-// ad.style.display = "none";
+attendence_list.style.display = "block";
+rollcall.style.display = "none";
 Chartt.classList.remove("moves");
 Chartt.classList.remove("left");
 Leaderboard.classList.add("right");
@@ -247,20 +306,6 @@ form.onsubmit=function(e){
     let lifetime=document.getElementById('lifetime').value;
     let major=document.getElementById('major').value;
 
-// switch(lifetime){
-//     case '3 Min':
-//         lifetime=180;
-//         break;
-//     case '5 Min':
-//         lifetime=300;
-//         break;
-//     case '10 Min':
-//         lifetime=600;
-//         break;
-//     default:
-//         lifetime=180;
-// }
-// console.log(lifetime +"hadha")
 
     axios.post('/api/rollcall',{
         'year':year,
@@ -271,6 +316,26 @@ form.onsubmit=function(e){
         window.location='/rollcall/'+res.data.token;
     });
 }
+
+    
+//filter
+let items=document.getElementById("stu_list").children;
+function filter(e){
+    
+    for(i=0;i<items.length;i++){
+        items[i].style.display="none";
+        if (items[i].getAttribute('data_rollno') == e.value.toUpperCase()) {    
+            items[i].style.display = "flex"; 
+        }
+        if (e.value == '') {
+            items[i].style.display = "flex"; 
+        }
+
+    }
+ 
+    
+}
+
 </script>
 </body>
 </html>

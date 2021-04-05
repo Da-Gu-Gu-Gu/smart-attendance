@@ -277,8 +277,25 @@ function tpreset(Request $request){
     
     $years=Rollcall::where('tid',$teacher->id)->pluck('year');  //classes
     $classes=array_count_values($years->toArray());
+
+
+    $herstulist=Attendance::where('tid',$teacher->id)->pluck('rollno'); //attendence list ko pya poh
+    $list=[];
+    foreach($herstulist as $aa){
+        $major=Student::where('rollno',$aa)->first('major');
+        $list[$aa]['major']=$major->major;  //dr ka major name
+        $list[$aa]['profile']=Student::where('rollno',$aa)->first('img')->img;
+        $list[$aa]['Year']=Attendance::where('rollno',$aa)->first('year')->year;
+        $list[$aa]['rollno']=Attendance::where('rollno',$aa)->first('rollno')->rollno;
+        $list[$aa]['Major']=Attendance::where('rollno',$aa)->where('subject',$major->major)->count();  //dr ka count ma tuu buu
+        $list[$aa]['Minor 1']=Attendance::where('rollno',$aa)->where('subject','Minor 1')->count();
+        $list[$aa]['Minor 2']=Attendance::where('rollno',$aa)->where('subject','Minor 2')->count();
+        $list[$aa]['Minor 3']=Attendance::where('rollno',$aa)->where('subject','Minor 3')->count();
+        
+    }
+ 
      
-    return view('teacher',['teacher'=>$teacher,'class'=>$classes]);
+    return view('teacher',['teacher'=>$teacher,'class'=>$classes,'list'=>$list]);
 }
 
 
@@ -304,6 +321,8 @@ function rollcall(Request $req){
                 'major'=>$req->major
                 ]);
                
+                $req->session()->put('qr-lifetime', $req->lifetime);       //qrcode ko lifetime countdown loke poh
+
                 return response()->json(['success'=>'success','token'=>$token], 200);
             
     }

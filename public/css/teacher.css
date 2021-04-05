@@ -103,3 +103,9 @@ a {
         width: 150px;
     }
 }
+
+.form-control:focus {
+    border-color: #5754FF;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
