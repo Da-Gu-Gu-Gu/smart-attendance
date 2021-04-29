@@ -35,6 +35,7 @@ class LoginController extends Controller
 
            if( Hash::check($req->password,$check)){
             $req->session()->put('semail', $req->email);
+         
             return response()->json(['msg'=>'Valid'], 200);
            }
            else{
@@ -71,16 +72,42 @@ class LoginController extends Controller
                     $files->move($destinationPath, $profileImage);
                 }
 
+
+                if($req->year=='First Year'){
+                    $year=1;
+                }
+                if($req->year=='Second Year'){
+                    $year=2;
+                }
+                if($req->year=='Third Year'){
+                    $year=3;
+                }
+                if($req->major=="Myanmar"){
+                    $major='MM';
+                }
+                if($req->major=="English"){
+                    $major="EN";
+                }
+                if($req->major=="Japan"){
+                     $major="JP";
+                    }
+
+               $checkrollno=count(Student::where('rollno',$year.$major.'-'.$req->rollno)->pluck('rollno'));   
+               if($checkrollno>0){
+                   return response()->json(['rollno'=>'Roll no already exist!'],200);
+               } else{
+
                 $verification_number=mt_rand(1000,9999);
                 $req->session()->put('verify_number', $verification_number); 
                 $req->session()->put('image', $profileImage);
                 $req->session()->put('email', $req->email);   
-                $req->session()->put('rollno', $req->rollno);   
+                $req->session()->put('rollno', $year.$major.'-'.$req->rollno);   
                 $req->session()->put('name', $req->name);  
                 $req->session()->put('major', $req->major);   
                 $req->session()->put('year', $req->year);  
                 $req->session()->put('password', $req->password);              
                  return response()->json(['msg'=>'tovertify'], 200);
+               }
             }
 
 
@@ -142,7 +169,7 @@ class LoginController extends Controller
             $dates=Attendance::where("rollno",$student->rollno)->pluck('date');
             $chartdata=array_count_values($dates->toArray());
            $chartdata= array_slice($chartdata,-5);//FOR 5 DAYS CHART DATA
-           
+         
             return view('student',['student'=>$student,'major'=>$major,'minor1'=>$minor1,'minor2'=>$minor2,'minor3'=>$minor3,"leaderboard"=>$Result,"chartdata"=>$chartdata]);
     }
 

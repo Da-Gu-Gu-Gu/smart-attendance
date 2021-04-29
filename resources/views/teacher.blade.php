@@ -7,6 +7,10 @@
     <title>Document</title>
     <x-link/>
     <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
         ul li{
             width: 14.1%;
             position: relative;
@@ -34,7 +38,7 @@
        width:100%;
        height: 100%;
        /* border-radius: 20%; */
-       background-color:#ff7d7b;
+       background-color:#EEA4B6;
    }
    .event{
        background-color: aqua;
@@ -54,7 +58,27 @@
    .form-control{
        outline: none;
    }
- 
+ #print{
+     float: right;
+    display: inline-block;
+    border-radius: 10px;
+    
+    /* padding: 0 auto; */
+    color:white;
+    background-color: rgb(255, 0, 127);
+  
+   
+ }
+ #control{
+    border-radius: 10px;
+background: #ece2e2;
+padding:15px;
+ }
+
+ body:not(.modal-open){
+  padding-right: 0px !important;
+}
+
 </style>
 </head>
 <body>
@@ -63,7 +87,7 @@
  
     
 {{-- profile-content --}}
-    <div class="container my-3  rounded " style="background-color:#ff7d7b; ">
+    <div class="container my-3  rounded " style="background-color:#FFE3EF; z-index:-1!important;">
         <div class="row justify-content-around py-5 ">
         <div  class="col-lg-5 col-md-7 rounded container">
            <center>
@@ -94,7 +118,7 @@
                     <a href="#" class="next round" style="font-size: 40px;" onclick="nextmonth();">&#8250;</a>
                 </div>
                 <div id="weekdays">
-                    <ul class="d-flex  text-decoration-none list-unstyled  text-white" style="background-color: #ff7d7b;">
+                    <ul class="d-flex  text-decoration-none list-unstyled  text-white" style="background-color: #ff007f;">
                         <li>Sun</li>
                         <li>Mon</li>
                         <li>Tue</li>
@@ -204,20 +228,61 @@
             <option >10 Min</option>
           </select>
 
-          <button class="btn  col-lg-8 col-md-10 text-white mt-3" id="submit" type="submit" style="background-color: tomato;">Send</button>
+          <button class="btn  col-lg-8 col-md-10 text-white mt-3" id="submit" type="submit" style="background-color: #FF66CB;">Send</button>
     </form>
       </center>
   </div>
 
 {{-- attendence list --}}
-<div class="container my-5" id="attendence-list" >
-    <input type="text" class="form-control my-4 col-lg-3 col-md-4 col-5" placeholder="roll no" onkeyup="filter(this)" style="border-radius: 30px;">
+<div class="container" id="attendence-list" >
+    <br>
+    <button class="btn"  class="container  " style="background-color:#EEA4B6">
+    <i class="fas fa-filter"></i>
+</button>
+
+    <button class="btn" id="print" class="container  ">
+        <i class="fas fa-download"></i>
+    </button>
+    <br>
+    <br>
+    <div id="control" class="mt-3 mb-5">
+       
+  
+    <div id="filter" class="row my-4 container justify-content-between">
+       <div class="input-group  col-lg-7  col-md-5 col-12 mb-3 mb-md-0 mb-lg-0">
+
+    <input type="text"  id="search"  class="form-control" placeholder="Enter roll no" onkeyup="filter(this)" >
+    <span toggle="#search" class="text-dark fas fa-search field-icon"  id="teye" onclick="focusInput(this)"></span>
+    </div>           
+    <select class="form-control col-lg-2 col-md-3 col-5" onchange="m_filter(this)">
+        <option selected>Major</option>
+        <option>Myanmar</option>
+        <option >English</option>
+        <option >Japan</option>
+    </select>
+
+    <select class="form-control col-lg-2 col-md-3 col-5" onchange="y_filter(this)">
+        <option selected>Year</option>
+        <option>First Year</option>
+        <option >Second Year</option>
+        <option >Third Year</option>
+    </select>
+
+</div>
+
+
+
+</div>
+{{-- <div class="container mb-3 mt-2 row">
+    <div class="major-f d-inline-block p-1 border  border-danger mr-2" style="border-radius: 10px;">Myanmar</div>
+    <div class="year-f d-inline-block p-1 border  border-danger" style="border-radius: 10px;">First Year</div>
+</div> --}}
     <center>
   <div class=" row justify-content-between"  id="stu_list">
 
        
             @foreach ($list as $stu)
-            <section class="col-lg-4 col-md-6 shadow  pt-3 pb-2 px-2 mb-3 row justify-content-around" style="border-radius:15px;" id="list" data_rollno="{{$stu['rollno']}}" >
+            <section class="col-lg-4 col-md-6 shadow  pt-3 pb-2 px-2 mb-3 row justify-content-around" style="border-radius:15px;" id="list" data_rollno="{{$stu['rollno']}}" data_major="{{$stu['major']}}" data_year="{{$stu['Year']}}" >
             <img src="{{asset('uploads/student_image/')}}<?php echo '/'.$stu['profile'];?>"  width="50px" height="50px" style="border-radius: 100%"; alt="">
 
             <div >
@@ -248,7 +313,7 @@
           <button type="button" class="btn " data-dismiss="modal" aria-label="Close">&times;</button>
         </div>
         <div class="modal-body">
-          ...
+   blah blah
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -334,6 +399,47 @@ function filter(e){
     }
  
     
+}
+// major-filter
+function m_filter(e){
+    console.log(e.value);
+  
+    for(i=0;i<items.length;i++){
+
+        items[i].style.display="none";
+        if(e.value=="Major"){
+        items[i].style.display="flex";
+    }
+
+        if (items[i].getAttribute('data_major') == e.value) {    
+            items[i].style.display = "flex"; 
+        }
+        if (e.value == '') {
+            items[i].style.display = "flex"; 
+        }
+
+    }
+    
+}
+
+function y_filter(e){
+    for(i=0;i<items.length;i++){
+        items[i].style.display="none";
+        if(e.value=="Year"){
+        items[i].style.display="flex";
+    }
+        if (items[i].getAttribute('data_year') == e.value) {    
+            items[i].style.display = "flex"; 
+        }
+        if (e.value == '') {
+            items[i].style.display = "flex"; 
+        }
+    }
+    
+}
+
+function focusInput(e){
+    document.getElementById("search").focus();
 }
 
 </script>

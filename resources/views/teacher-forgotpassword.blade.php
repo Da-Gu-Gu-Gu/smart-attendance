@@ -24,7 +24,7 @@
                        
                         </div>
                         <small class="text-danger d-block " id="error"></small>
-                    <button class="btn  col-lg-6 col-md-8 text-white mt-5" id="submit" type="submit" style="background-color: tomato;">Send</button>
+                    <button class="btn  col-lg-6 col-md-8 text-white mt-5" id="submit" type="submit" style="background-color: #FF66CB;">Send</button>
                 </form>
             </div>  
 

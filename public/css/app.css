@@ -21,6 +21,7 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
+    font-family: 'Padauk', sans-serif;
     color: black;
     /* background-color: red; */
 }
@@ -94,7 +95,7 @@ b {
     border-right: none;
     border-bottom: none;
     border-left-width: .4rem;
-    border-left-color: #ff007f;
+    border-left-color: rgb(255, 0, 127);
 }
 
 .bd-callout-info {
@@ -228,6 +229,9 @@ b {
     h3 {
         font-size: 1.5rem;
     }
+    /* #hover {
+        width: 50%;
+    } */
 }
 
 

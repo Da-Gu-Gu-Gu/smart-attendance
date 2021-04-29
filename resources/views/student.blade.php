@@ -40,6 +40,10 @@
 
     border-radius: 10px;
    }
+
+   body:not(.modal-open){
+  padding-right: 0px !important;
+}
  
 </style>
 </head>

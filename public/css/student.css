@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Padauk', sans-serif;
+}
+
 a {
     text-decoration: none !important;
 }

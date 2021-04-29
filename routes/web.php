@@ -9,7 +9,7 @@ use App\Models\Rollcall;
 use App\Models\Attendance;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LocalizationController;
-
+use App\Events\MyEvent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +37,13 @@ Route::view('/student/forgot-password','student-forgotpassword');
 Route::view('/teacher/forgot-password','teacher-forgotpassword');
 Route::get('/verification',[LoginController::class,'verify']);
 
+Route::view('/test/notisent','notisent');
+Route::post('/noti/sent',function (Request $test) {
+
+event(new MyEvent("hein htet aung"));
+    return "Event has been sent!";});
+
+Route::view('/test/notitest','notitest');
 // Route::view('/aa','email/spr');
 // Route::get('/test',function(){
 //     $aa=urlencode('heinhtetaung@gmalil.com');
@@ -70,12 +77,16 @@ Route::group(['middleware'=>['studentPage']], function () {
         $morethanone=Attendance::where('rollno',$student->rollno)->get('token'); //more than one time roll call?
         // print($morethanone[key($morethanone)]);
        $rollcallcheck=$morethanone->toArray();
+       print_r($rollcallcheck);
         $aa=array_slice($rollcallcheck,-1);
+    //    print(count($aa));
+    if(count($aa)>0){
         if($aa[0]['token']==$checktoken->token){
             echo "tuu ny tl";
             $request->session()->put('attendanceinfo', 'You already get attendance');         
             return redirect('/student/attendance');
         }
+    }
 
         if(empty($checktoken)){
             return abort(404);

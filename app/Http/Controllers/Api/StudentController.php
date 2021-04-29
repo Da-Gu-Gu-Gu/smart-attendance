@@ -36,28 +36,11 @@ class StudentController extends Controller
         //
         
             if($req->verify_number==session('verify_number')){
-            if(session('year')=='First Year'){
-                $year=1;
-            }
-            if(session('year')=='Second Year'){
-                $year=2;
-            }
-            if(session('year')=='Third Year'){
-                $year=3;
-            }
-            if(session('major')=="Myanmar"){
-                $major='MM';
-            }
-            if(session('major')=="English"){
-                $major="EN";
-            }
-            if(session('major')=="Japan"){
-                 $major="JP";
-                }
+      
          
                 $student=Student::create([
                     'img'=>session('image'),
-                    'rollno'=>$year.$major.'-'.session('rollno'),
+                    'rollno'=>session('rollno'),
                     'name'=>session('name'),
                     'major'=>session('major'),
                     'year'=>session('year'),

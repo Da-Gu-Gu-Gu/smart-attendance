@@ -18,8 +18,8 @@
         </div>
         <div class="col-xl-6 mt-4 ">
             <div id="toggle" class="   row rounded justify-content-between   m-auto " >
-               <p class="py-2 m-auto w-50 text-center active" id="s" onclick="s()">STUDENT</p>
-               <p class="py-2 m-auto w-50 text-center"  id="t" onclick="t()">TEACHER</p>
+               <p class="py-2 m-auto w-50 text-center active" id="s" onclick="s()" style="text-transform: uppercase;">@lang('lang.student')</p>
+               <p class="py-2 m-auto w-50 text-center"  id="t" onclick="t()" style="text-transform: uppercase">@lang('lang.teacher')</p>
             </div><br>
             {{-- student login form --}}
             <div id="student-lform" class="rounded m-auto col-xl-9 col-lg-8 col-md-6  border pt-4 shadow animate__animated  animate__backInRight" style="display: block;overflow-x: hidden;">
@@ -74,7 +74,7 @@
                       </div>
                       <small class="text-danger d-block " id="tl_password-error"></small>
                     </div>
-                    <button type="submit" class="btn  text-white col-12 text-weight-bold" id="tsubmit" style="background-color: tomato;">
+                    <button type="submit" class="btn  text-white col-12 text-weight-bold" id="tsubmit" style="background-color: #FF66CB;">
                       <div class="spinner-border spinner-border-sm text-light " id="tloading-icon" style="opacity: 0;" role="status" style="vertical-align: text-top;"> </div>
                       <span class="tbtn_text text-white " style="vertical-align: middle;"> @lang('lang.login') </span>
                     </button>

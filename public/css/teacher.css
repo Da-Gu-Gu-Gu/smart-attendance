@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Padauk', sans-serif;
+}
+
 a {
     text-decoration: none !important;
 }
@@ -76,7 +80,7 @@ a {
 
 #attendance-record {
     border-radius: 20px;
-    background-color: tomato;
+    background-color: #69BAA4;
 }
 
 #menu {
@@ -91,7 +95,7 @@ a {
     transition: all 0.2s;
     border-radius: 20px;
     width: 50%;
-    background-color: #ff7d7b;
+    background-color: #FF66CB;
 }
 
 .right {
@@ -108,4 +112,13 @@ a {
     border-color: #5754FF;
     box-shadow: none;
     -webkit-box-shadow: none;
+}
+
+span.field-icon {
+    position: absolute;
+    display: inline-block;
+    cursor: pointer;
+    right: 1.4rem;
+    top: 0.7rem;
+    z-index: 2;
 }

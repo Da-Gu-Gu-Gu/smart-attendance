@@ -19,9 +19,9 @@
     <div id="content">
         <div id="content-text" >
         <div class="bd-callout bd-callout-red animate__animated animate__lightSpeedInRight">
-                        You No need to shout <br>
-                <b>"Present Sir"</b> <br>
-                For the attendence  
+                       @lang('lang.YOU NO NEED TO SHOUT') <br>
+                <b>"@lang('lang.PRESENT SIR')"</b> <br>
+                @lang('lang.FOR THE ATTENDENCE') 
         </div>
    <a href="/login"> <button class="btn btn-light  mt-2 col-lg-3" style="color:#ff007f"> @lang('lang.login')   &nbsp;&nbsp;<i class="fas fa-arrow-right "></i></button></a>
         
@@ -45,7 +45,7 @@
             <section id="hover" class="col-md-3 col-lg-3 shadow p-4 py-2 mb-5 "  data-aos="zoom-out-left"
            >
             <i class="fas fa-qrcode" style="font-size:2.8rem;"></i>
-             <p class="mt-1">Qr-Code</p>
+             <p class="mt-1">@lang('lang.Qr-Code')</p>
                 
             </section>
               <section id="hover" class="col-md-3  col-lg-3 shadow p-4 py-2 mb-5 "  data-aos="zoom-out-right"
@@ -58,7 +58,7 @@
             <section  id="hover" class="col-md-3  col-lg-3 shadow p-4  py-2 mb-5 "  data-aos="zoom-out-left"
            >
                 <i class="fas fa-print" style="font-size:2.8rem;"></i>
-                 <p class="mt-1">Print</p>
+                 <p class="mt-1">@lang('lang.download')</p>
          
 
             </section>
@@ -88,8 +88,9 @@
         </div>
         
         <h5 class=" container text-left ml-md-4 ml-lg-5 mt-auto"  style="color:#5754FF;border-left:2px solid #5754FF;">Benefits</h5>
-
+     
             <div class="row container mt-5 justify-content-between" style="overflow-x:hidden ">
+             
                 <section id="benefit" class="row shadow p-4 py-2 mb-5  col-lg-6"  data-aos="zoom-out-left"
                 >
                      <i class="fas fa-tachometer-alt"style="font-size:2.8rem;width:20%;"></i>
@@ -127,7 +128,9 @@
                       </div>
        
                    </section>
+                    
             </div>
+       
     
     </center> 
    </div>

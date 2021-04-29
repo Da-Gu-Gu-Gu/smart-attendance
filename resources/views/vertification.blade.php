@@ -60,7 +60,11 @@ if(res.data.msg=='success'){
     window.location='/student';
 }
 
-});
+})
+.catch(function(error) {
+        console.log(error);
+      })
+
 }
 </script>
 </html>

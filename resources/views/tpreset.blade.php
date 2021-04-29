@@ -16,7 +16,7 @@
 
     </div>
     <div class="container col-lg-5 col-md-8 shadow rounded text-center my-5 py-4" style="font-size:40px;">
-    <i class="fas fa-lock  text-center" style="color:tomato;"></i>
+    <i class="fas fa-lock  text-center" style="color:#FF66CB;"></i>
     <h2 class="mt-4">Reset Password</h2>
 
     <center>
@@ -26,7 +26,7 @@
         <input type="password" class="form-control col-lg-8 col-md-10 my-4" id="password"  placeholder="New Password" required>
         <input type="password" class="form-control col-lg-8 col-md-10 mt-4 " id="cpassword" placeholder="Confirm Password" required>
         <small class="text-danger d-block text-left col-lg-8 col-md-10" style="font-size:12px;" id="error"></small>
-        <button type="submit" class="btn col-lg-8 col-md-10 text-white font-weight-bold mt-4" style="background-color:tomato;">Reset Password</button>
+        <button type="submit" class="btn col-lg-8 col-md-10 text-white font-weight-bold mt-4" style="background-color:#FF66CB;">Reset Password</button>
     </form>
     </center>
     </div>
