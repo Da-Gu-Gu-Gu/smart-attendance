@@ -26,6 +26,7 @@ Route::post('login/student',[LoginController::class,'loginStudent']);
 Route::post('register/student',[LoginController::class,'registerStudent']);
 Route::post('forgetpassword/student',[LoginController::class,'forgetpasswordstudent']);
 Route::post('spreset',[LoginController::class,'spreset']);
+Route::post('sprofile_edit',[LoginController::class,'sprofile_edit']);
 
 
 //teacher
@@ -35,4 +36,7 @@ Route::post('tpreset',[LoginController::class,'tpreset']);
 
 //rollcall
 Route::post('rollcall',[LoginController::class,'rollcall']);
+
+//profile
+Route::post('tprofile_edit',[LoginController::class,'tprofile_edit']);
 

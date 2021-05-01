@@ -93,7 +93,7 @@ padding:15px;
            <center>
                 <div class="container">
                 <div id="teacher" class="row  shadow-lg rounded mr-lg-5 ">
-                    <img src="{{asset('uploads/student_image/20210104153407.jpg')}}"/> {{--teacher upload change ya oo ml --}}
+                    <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>"/> {{--teacher upload change ya oo ml --}}
                     <div id="status" class="col-12 text-white rounded">
                         <p class="font-weight-bold text-left pt-1 upper">{{$teacher->name}}</p>
                         <div class="d-flex justify-content-between pb-0 mb-0">
@@ -236,12 +236,12 @@ padding:15px;
 {{-- attendence list --}}
 <div class="container" id="attendence-list" >
     <br>
-    <button class="btn"  class="container  " style="background-color:#EEA4B6">
+    {{-- <button class="btn"  class="container  " style="background-color:#EEA4B6">
     <i class="fas fa-filter"></i>
-</button>
+</button> --}}
 
-    <button class="btn" id="print" class="container  ">
-        <i class="fas fa-download"></i>
+    <button class="btn" id="print" class="container"><a href="/teacher/pdf" class="text-white">
+        <i class="fas fa-download"></i></a>
     </button>
     <br>
     <br>
@@ -253,20 +253,22 @@ padding:15px;
 
     <input type="text"  id="search"  class="form-control" placeholder="Enter roll no" onkeyup="filter(this)" >
     <span toggle="#search" class="text-dark fas fa-search field-icon"  id="teye" onclick="focusInput(this)"></span>
-    </div>           
-    <select class="form-control col-lg-2 col-md-3 col-5" onchange="m_filter(this)">
+    </div>   
+      
+    <select class="form-control col-lg-2 col-md-3 col-6 " onchange="m_filter(this)">
         <option selected>Major</option>
         <option>Myanmar</option>
         <option >English</option>
         <option >Japan</option>
     </select>
 
-    <select class="form-control col-lg-2 col-md-3 col-5" onchange="y_filter(this)">
+    <select class="form-control col-lg-2 col-md-3 col-6 mr-0" onchange="y_filter(this)">
         <option selected>Year</option>
         <option>First Year</option>
         <option >Second Year</option>
         <option >Third Year</option>
     </select>
+
 
 </div>
 
@@ -304,7 +306,7 @@ padding:15px;
 </center>
 </div>
 
-<!-- Modal -->
+<!--calendar  Modal -->
 <div class="modal fade" id="calendar_event" tabindex="-1" aria-labelledby="calendar_eventLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -322,6 +324,43 @@ padding:15px;
       </div>
     </div>
   </div>
+
+
+{{-- pp edit modal --}}
+  <div class="modal fade my-5" id="ppedit" tabindex="-1" aria-labelledby="ppeditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="d-flex justify-content-between px-3 pt-4">
+          <h5 class="modal-title" id="ppeditLabel">Edit Profile</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+            <span aria-hidden="true"  style="font-size:30px !important;color:red;">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" id="profile_edit" name="profile_edit" enctype="multipart/form-data">
+            @csrf
+            <div class="d-flex justify-content-between">
+                <div id="image" class="col-3">
+                <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>"  id="imagepreview" class="rounded bg-light" width="75px" height="75px">
+                <label for="profile-edit" style="position: relative;;top:-24px;left:-1px;width:75px;background:rgba(0,0,0,0.6);cursor: pointer;"  class="rounded text-white text-center">upload</label>
+                <input type="file"  name="profile-edit" class="d-none" id="profile-edit" value="{{$teacher->img}}" onchange="readURL(this)"> 
+                <small class="d-none" id="image-value">{{$teacher->img}}</small>
+            </div>
+               
+            <input type="text" class="form-control col-8 col-lg-9 col-md-9 " name="name" id="name" value="{{$teacher->name}}" placeholder="Enter name">
+        </div>
+      
+          <button type="submit" class="btn text-white " style="background-color: #ff007f;float: right;margin-top:-10px;"><i class="fas fa-check"></i> Save changes</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {{-- <div class="px-2 py-2 shadow  mr-5 mb-5" style="width:50px;height:50px;position: fixed;bottom:0;right:0;border-radius:100%;line-height:50px;background:#ff007f;">
+    <i class="far fa-comment" style="font-size: 30px;text-align:center;color:white;"></i>
+  </div> --}}
 
 
    <script src="{{asset('js/calendar.js')}}"></script> 
@@ -362,6 +401,17 @@ Chartt.classList.remove("left");
 Leaderboard.classList.add("right");
 }
 
+function readURL(image){
+    if(image.files && image.files[0]){
+        var reader=new FileReader();
+        reader.onload=function(e){
+            $('#imagepreview').attr('src',e.target.result);
+        }
+
+        reader.readAsDataURL(image.files[0]);
+    }
+}
+
 
 let form=document.forms['rollcall'];
 form.onsubmit=function(e){
@@ -382,6 +432,34 @@ form.onsubmit=function(e){
     });
 }
 
+
+let form_edit=document.forms['profile_edit'];
+form_edit.onsubmit=function(e){
+    e.preventDefault();
+    let form_data=new FormData();
+    let profile_img=document.getElementById('profile-edit');
+    let name=document.getElementById('name');
+    if(profile_img.files[0]==undefined)
+    { 
+        form_data.append("profile",document.getElementById("image-value").innerText);
+}
+    else{
+        form_data.append("profile", profile_img.files[0]);
+    }
+
+
+    
+    form_data.append("name", name.value);
+    console.log(form_data);
+
+    axios.post('/api/tprofile_edit',form_data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(res=>{
+       window.location='/teacher';
+    });
+}
     
 //filter
 let items=document.getElementById("stu_list").children;

@@ -10,6 +10,7 @@ use App\Models\Attendance;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LocalizationController;
 use App\Events\MyEvent;
+use App\Http\Controllers\PdfController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -158,6 +159,7 @@ Route::get('teacher/password/reset/{token}',function(Request $request,$token){
 Route::group(['middleware' => ['teacherPage']], function () {
     Route::get('/teacher/logout',[LoginController::class,'teacher_logout']);
     Route::get('/teacher',[LoginController::class,'teacher']);
+    Route::get('/teacher/pdf', [PdfController::class, 'createPDF']);      //pdf
     Route::get('/rollcall/{token}',function(Request $request,$token){
         $checktoken=Rollcall::where('token',$token)->first(); //tid
         if(empty($checktoken)){

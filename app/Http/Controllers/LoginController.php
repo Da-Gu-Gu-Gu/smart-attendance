@@ -213,6 +213,27 @@ class LoginController extends Controller
     }
 }
 
+
+// profile edit 
+
+function sprofile_edit(Request $req){
+
+    if ($files = $req->file('profile')) {
+
+            $destinationPath = 'uploads/student_image/';
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $profileImage);
+        
+        Student::where('email',session('semail'))->update(['img'=>$profileImage,'name'=>$req->name]);
+    }
+    else{
+        Student::where('email',session('semail'))->update(['img'=>$req->profile,'name'=>$req->name]);
+    }
+
+   
+     return response()->json(["value"=>$req->profile,"name"=>$req->name], 200);
+}
+
 // student password reset
 function spreset(Request $request){
    if(Student::where('rollno',session('spreset-rollno'))->update(['password'=>Hash::make($request->password)])){
@@ -323,6 +344,27 @@ function tpreset(Request $request){
  
      
     return view('teacher',['teacher'=>$teacher,'class'=>$classes,'list'=>$list]);
+}
+
+
+// profile edit 
+
+function tprofile_edit(Request $req){
+
+    if ($files = $req->file('profile')) {
+
+            $destinationPath = 'uploads/teacher_image/';
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $profileImage);
+        
+        Teacher::where('email',session('temail'))->update(['img'=>$profileImage,'name'=>$req->name]);
+    }
+    else{
+        Teacher::where('email',session('temail'))->update(['img'=>$req->profile,'name'=>$req->name]);
+    }
+
+   
+     return response()->json(["value"=>$req->profile,"name"=>$req->name], 200);
 }
 
 

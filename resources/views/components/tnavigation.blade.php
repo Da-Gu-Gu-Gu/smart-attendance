@@ -21,7 +21,7 @@
             <img src="{{asset('uploads/teacher_image/')}}<?php echo "/".session('tprofile_image');?>" id="profile" class="border" />
             </a>    
           <div class="dropdown-menu mt-3 text-left" style="right:0;left:auto;">
-            <a class="dropdown-item " href="/t/edit-profile">
+            <a class="dropdown-item " href="" data-toggle="modal" data-target="#ppedit">
                 Edit Profile
             </a>
             <a class="dropdown-item text-danger " href="/teacher/logout">

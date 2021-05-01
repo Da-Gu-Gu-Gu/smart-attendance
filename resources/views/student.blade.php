@@ -220,6 +220,38 @@
     </div>
   </div>
 
+
+{{-- pp edit modal --}}
+<div class="modal fade my-5" id="ppedit" tabindex="-1" aria-labelledby="ppeditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="d-flex justify-content-between px-3 pt-4">
+          <h5 class="modal-title" id="ppeditLabel">Edit Profile</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+            <span aria-hidden="true"  style="font-size:30px !important;color:red;">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" id="profile_edit" enctype="multipart/form-data">
+            @csrf
+            <div class="d-flex justify-content-between">
+                <div id="image" class="col-3">
+                <img src="{{asset('uploads/student_image/')}}<?php echo '/'.$student->img;?>"  id="imagepreview" class="rounded bg-light" width="75px" height="75px">
+                <label for="profile-edit" style="position: relative;;top:-24px;left:-1px;width:75px;background:rgba(0,0,0,0.6);cursor: pointer;"  class="rounded  text-white text-center">upload</label>
+                <input type="file"  name="profile-edit" class="d-none" id="profile-edit" onchange="readURL(this)" > 
+                <small class="d-none" id="image-value">{{$student->img}}</small>
+            </div>
+               
+            <input type="text" class="form-control col-8 col-lg-9 col-md-9 mt-3" name="name" id="name" value="{{$student->name}}" placeholder="Enter name">
+        </div>
+      
+          <button type="submit" class="btn text-white " style="background-color: #a55cdd;float: right;margin-top:-10px;"><i class="fas fa-check"></i> Save changes</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <script>
       
         let Chartt = document.getElementById('chart');
@@ -244,6 +276,48 @@ function leaderboard() {
     Chartt.classList.remove("moves");
     Chartt.classList.remove("left");
     Leaderboard.classList.add("right");
+}
+
+// image preview
+function readURL(image) {
+    if (image.files && image.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#imagepreview')
+                .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(image.files[0]);
+    }
+}
+
+let form_edit=document.forms['profile_edit'];
+form_edit.onsubmit=function(e){
+    e.preventDefault();
+    let form_data=new FormData();
+    let profile_img=document.getElementById('profile-edit');
+    let name=document.getElementById('name');
+    if(profile_img.files[0]==undefined)
+    { 
+        form_data.append("profile",document.getElementById("image-value").innerText);
+}
+    else{
+        form_data.append("profile", profile_img.files[0]);
+    }
+
+
+    
+    form_data.append("name", name.value);
+    console.log(form_data);
+
+    axios.post('/api/sprofile_edit',form_data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(res=>{
+       window.location='/student';
+    });
 }
     </script>
     
