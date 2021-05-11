@@ -52,7 +52,7 @@
            >
            
             <i class="far fa-calendar-alt" style="font-size:2.8rem;"></i>
-             <p class="mt-1">Schedule</p>
+             <p class="mt-1">@lang('lang.schedule')</p>
                 
             </section>
             <section  id="hover" class="col-md-3  col-lg-3 shadow p-4  py-2 mb-5 "  data-aos="zoom-out-left"
@@ -68,20 +68,20 @@
              <section  id="hover" class="col-md-3  col-lg-3 shadow p-4 py-2 mb-5 "  data-aos="zoom-out-right"
            >
             <i class="far fa-chart-bar" style="font-size:2.8rem;"></i>
-             <p class="mt-1">Attendance Chart</p>
+             <p class="mt-1">@lang('lang.attendance chart') </p>
                 
             </section>
               <section id="hover" class="col-md-3   col-lg-3 shadow p-4 py-2 mb-5 "  data-aos="zoom-out-left"
            >
          
             <i class="fas fa-book" style="font-size:2.8rem;"></i>
-             <p class="mt-1">Assignment</p>
+             <p class="mt-1">@lang('lang.assignment')</p>
                 
             </section>
             <section id="hover" class="col-md-3 col-lg-3 shadow p-4 py-2 mb-5 "  data-aos="zoom-out-right"
            >
                 <i class="fas fa-medal" style="font-size:2.8rem;"></i>
-                <p class="mt-1">Attendance Leaderboard</p>
+                <p class="mt-1">@lang('lang.attendance leaderboard')</p>
          
 
             </section>

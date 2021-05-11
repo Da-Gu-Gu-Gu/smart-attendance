@@ -10,6 +10,10 @@
  'student'=>'student',
  'teacher'=>'teacher',
  'Qr-Code'=>'Qr-Code',
- 'download'=>'Download',]
+ 'download'=>'Download',
+ 'schedule'=>'Schedule',
+ 'assignment'=>'Assignment',
+ 'attendance chart'=> 'Attendance Chart',
+ 'attendance leaderboard'=>'Attendance Leaderboard',]
 ?>
 

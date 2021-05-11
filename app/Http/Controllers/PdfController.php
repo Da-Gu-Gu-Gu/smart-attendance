@@ -8,22 +8,21 @@ use PDF;
 
 class PdfController extends Controller
 {
-    //
-      // Display user data in view
-      public function showEmployees(){
-        $employee = Attendance::all();
-        return view('index', compact('employee'));
-      }
+    
   
       // Generate PDF
-      public function createPDF() {
+      public function createPDF(Request $req) {
         // retreive all records from db
         $teacher=Teacher::where('email',session('temail'))->first();
     
         
     
-    
-        $herstulist=Attendance::where('tid',$teacher->id)->pluck('rollno'); //attendence list ko pya poh
+        if($req->year!="all"){
+        $herstulist=Attendance::where(['tid'=>$teacher->tid,'year'=>$req->year])->pluck('rollno'); //attendence list ko pya poh
+        }
+        else{
+          $herstulist=Attendance::where('tid',$teacher->tid)->pluck('rollno'); //attendence list ko pya poh
+        }
         $list=[];
         foreach($herstulist as $aa){
             $major=Student::where('rollno',$aa)->first('major');
@@ -37,12 +36,12 @@ class PdfController extends Controller
             $list[$aa]['Minor 3']=Attendance::where('rollno',$aa)->where('subject','Minor 3')->count();
             
         }
-  
-        // // share data to view
-        view()->share('employee',$list);
-        $pdf = PDF::loadView('pdf_view',["list"=> $list]);
+        // dd($list);
+       
+
+        $pdf = PDF::loadView('pdf_view',["list"=> $list,"teacher"=>$teacher,"date"=> date('j-n-Y'),"year"=>$req->year]);
   
         // download PDF file with download method
-        return $pdf->download('pdf_file.pdf');
+        return $pdf->download('AttendanceList('.$req->year.').pdf');
       }
 }

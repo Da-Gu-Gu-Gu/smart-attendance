@@ -91,43 +91,51 @@
 <div class="modal fade " id="student-register" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content " >
-      <div class="modal-header">
+      <div class="d-flex justify-content-between px-3 pt-4">
         <h5 class="modal-title text-center" id="exampleModalLabel">Create Student</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
-          <span aria-hidden="true" class="p-auto">&times;</span>
+          <span aria-hidden="true" class="p-auto" style="font-size: 30px;color:red;">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         
         <form  enctype="multipart/form-data" id="studentregister" method="POST" name="studentregister" >
           @csrf
-          <center><img src="https://img.icons8.com/fluent/96/000000/gender-neutral-user.png"  id="imagepreview" class="rounded-circle bg-light" width="100px" height="100px">
-          <label for="image" ><i class="fas fa-camera" id="camera"></i></label>
+         <div class="d-flex justify-content-between mt-3 ">
+         
+          <div class="col-3 ">
+       <img src="https://img.icons8.com/fluent/96/000000/gender-neutral-user.png"  id="imagepreview" class="rounded bg-light border border-info" width="75px" height="75px">
+          <label for="image" class="rounded  text-white text-center" style="position: relative;;top:-24px;left:-1px;width:75px;background:rgba(0,0,0,0.6);cursor: pointer;" >upload</label>
         
         
           <input type="file" name="image" class="d-none" id="image" onchange="readURL(this)"> 
        
-          <small class="text-danger d-block text-center" id="image-error"></small>
-        </center>
-          <div class="row justify-content-between">
+          <small class="text-danger d-block text-left" id="image-error"></small>
+         </div>
 
-              <div class="form-group col-12 col-sm-12 my-3">
-                <div class="text_field">
+
+          <div class="col-8 col-lg-9 col-md-9   pl-0 pr-0">
+
+              <div class="form-group ">
+
+                <div >
+                  <label for="rollno" >Rollno (number only)</label>
                 <input type="text" class="form-control" id="rollno" pattern="[0-9]+" name="rollno" value="" onchange="this.setAttribute('value',this.value)">
-                <label for="rollno" class="col-form-label">Rollno (number only)</label>
+         
               </div>
                   <small class="text-danger" id="rollno-error"></small>
               </div>
-
-              <div class="form-group col-12 col-sm-12 my-3">
-                <div class="text_field">
+              
+              <div class="form-group   ">
+                <div >
+                  <label for="name" >Name</label>
                 <input type="text" class="form-control" id="name" name="name" value="" onchange="this.setAttribute('value',this.value)">
-                <label for="name" class="col-form-label">Name</label>
+                
                 </div>
                   <small class="text-danger" id="name-error"></small>
               </div>
 
-          </div>
+          
 
           <div class="form-group row justify-content-between">
             <div id="Major" class="col-6 my-2">
@@ -157,28 +165,33 @@
           </div>
 
           </div>
+
           <div class="form-group  ">
-            <div class="text_field">
+            <div >
+              <label for="email" >Email</label> 
             <input type="email" class="form-control"  name="email" id="email" value="" onchange="this.setAttribute('value',this.value)">
-            <label for="email" class="col-form-label">Email</label> 
+           
             </div>
               <small class="text-danger" id="email-error"></small>
          
-          </div><br>
-          <div class="form-group text_field ">
-            <div class="text_field">
+          </div>
+          <div class="form-group ">
+            <div >
+              <label for="password" >Password</label>
             <input type="password" class="form-control" id="password" name="password" value="" onchange="this.setAttribute('value',this.value)">
-            <label for="password" class="col-form-label">Password</label>
+          
             </div>
               <small class="text-danger" id="password-error"></small>
            
           </div>
-
-
+          </div>
+         </div>
+          <div>
         <button type="submit" class="btn col-12 text-white my-xl-2 " id="signup" >
           <div class="spinner-border spinner-border-sm text-light " id="loading-icon" style="opacity: 0;" role="status" style="vertical-align: text-top"> </div>
-          <span class="btn_text text-white " style="vertical-align: middle;">Sign up</span>
+          <span class="btn_text text-white text-center" style="vertical-align: middle;">Sign up</span>
      </button>
+    </div>
       
     </form>
   </div>

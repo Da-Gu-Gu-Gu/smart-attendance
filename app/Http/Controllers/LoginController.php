@@ -20,6 +20,15 @@ use App\Models\Rollcall;
 //attendance
 use App\Models\Attendance;
 
+// calendarevent
+use App\Models\Calendarevent;
+
+//assignment
+use App\Models\Assignment;
+
+use App\Events\MyEvent;
+use App\Events\AssignmentEvent;
+
 class LoginController extends Controller
 {
     //loginstudent
@@ -156,9 +165,22 @@ class LoginController extends Controller
                     ++$minor3;
                 }     
         }
+
+        if($student->year=='First Year'){
+            $year=1;
+        }
+        if($student->year=='Second Year'){
+            $year=2;
+        }
+        if($student->year=='Third Year'){
+            $year=3;
+        }
       
             $request->session()->put('profile_image', $student->img);
             $request->session()->put('smajor',$student->major);
+            $request->session()->put('syear',$year);
+
+            // dd('assignment'.session('syear'));
             $rollnos=Attendance::where('year',$student->year)->pluck('rollno');
             $result=array_count_values($rollnos->toArray());
             asort($result);
@@ -170,13 +192,53 @@ class LoginController extends Controller
             $chartdata=array_count_values($dates->toArray());
            $chartdata= array_slice($chartdata,-5);//FOR 5 DAYS CHART DATA
          
-            return view('student',['student'=>$student,'major'=>$major,'minor1'=>$minor1,'minor2'=>$minor2,'minor3'=>$minor3,"leaderboard"=>$Result,"chartdata"=>$chartdata]);
+  // event
+  $event=[];
+           $event_date=Calendarevent::where('userid',$student->rollno)->pluck('date');
+           foreach($event_date as $data){
+            $event[$data]=Calendarevent::where(['userid'=>$student->rollno,"date"=>$data])->pluck('event');;
+        }
+    //   dd($Result);
+// noti
+
+            $notititles=Assignment::where(["year"=>$student->year,"major"=>$student->major])->get("title");
+            $notidates=Assignment::where(["year"=>$student->year,"major"=>$student->major])->get("date");
+            $notidetails=Assignment::where(["year"=>$student->year,"major"=>$student->major])->get("detail");
+            $notitids=Assignment::where(["year"=>$student->year,"major"=>$student->major])->get("tid");
+            $noti=[];
+            $notiimgs=[];
+            $notitnames=[];
+            // dd($notititles[0]["title"]);
+            for($j=0;$j<count($notitids);$j++){
+                $notiimgs[$j]=Teacher::where("tid",$notitids[$j]["tid"])->first("img")->img;
+                $notitnames[$j]=Teacher::where("tid",$notitids[$j]["tid"])->first("name")->name;
+            }
+            // dd($notiimgs);
+            // $notiimgs=Teacher::where("tid")
+            for($i=0;$i<count($notititles);$i++ ){
+                $noti[$i]["title"]=$notititles[$i]["title"];
+                $noti[$i]["detail"]=$notidetails[$i]["detail"];
+                $noti[$i]["tid"]=$notitids[$i]["tid"];
+                $noti[$i]["date"]=$notidates[$i]["date"];
+                $noti[$i]["img"]=$notiimgs[$i];
+                $noti[$i]["name"]=$notitnames[$i];
+                $noti[$i]["label"]="assignment";
+            }
+            // dd($noti);
+            // print_r($noti);
+            
+            $request->session()->put('sanoti',array_reverse($noti));
+
+
+            return view('student',['student'=>$student,'major'=>$major,'minor1'=>$minor1,'minor2'=>$minor2,'minor3'=>$minor3,"leaderboard"=>$Result,"chartdata"=>$chartdata,"event"=>$event,"noti"=>array_reverse($noti)]);
     }
 
     // student logout
     function student_logout(Request $request){
      $request->session()->forget('semail');
      $request->session()->forget('prfile_image');
+     $request->session()->forget('syear');
+     $request->session()->forget('sanoti');
      return redirect('student');
 
     }
@@ -217,6 +279,11 @@ class LoginController extends Controller
 // profile edit 
 
 function sprofile_edit(Request $req){
+    $validator=Validator::make($req->all(),[
+        'profile'=>'mimes:jpeg,png,jpg,svg',
+    ]);
+        
+    if($validator->passes()){
 
     if ($files = $req->file('profile')) {
 
@@ -230,8 +297,12 @@ function sprofile_edit(Request $req){
         Student::where('email',session('semail'))->update(['img'=>$req->profile,'name'=>$req->name]);
     }
 
-   
-     return response()->json(["value"=>$req->profile,"name"=>$req->name], 200);
+     return response()->json(["value"=>$req->profile,"name"=>$req->name,"type"=>gettype($req->profile)], 200);
+}
+
+if($validator->fails()){
+    return response()->json("fail", 200, $headers);
+}
 }
 
 // student password reset
@@ -255,6 +326,7 @@ function loginteacher(Request $req){
         $check=DB::table('teachers')->where('email',$req->email)->value('password');
         if(Hash::check($req->password,$check)){
             $req->session()->put('temail',$req->email);
+            $req->session()->put('tid',$req->tid);
             return response()->json(['msg'=>'success'],200);
         }
         else{
@@ -312,7 +384,8 @@ function tpreset(Request $request){
  //teacher logout
  function teacher_logout(Request $request){
     $request->session()->forget('temail');
-    // $request->session()->forget('prfile_image');
+    $request->session()->forget('tprfile_image');
+    $request->session()->forget('tid');
     return redirect('teacher');
  }
 
@@ -322,12 +395,13 @@ function tpreset(Request $request){
     $request->session()->put('tprofile_image', $teacher->img);
     $request->session()->put('tid', $teacher->tid);
 
+
     
-    $years=Rollcall::where('tid',$teacher->id)->pluck('year');  //classes
+    $years=Rollcall::where('tid',$teacher->tid)->pluck('year');  //classes
     $classes=array_count_values($years->toArray());
 
 
-    $herstulist=Attendance::where('tid',$teacher->id)->pluck('rollno'); //attendence list ko pya poh
+    $herstulist=Attendance::where('tid',$teacher->tid)->pluck('rollno'); //attendence list ko pya poh
     $list=[];
     foreach($herstulist as $aa){
         $major=Student::where('rollno',$aa)->first('major');
@@ -342,8 +416,14 @@ function tpreset(Request $request){
         
     }
  
-     
-    return view('teacher',['teacher'=>$teacher,'class'=>$classes,'list'=>$list]);
+    // event
+    $event=[];
+    $event_date=Calendarevent::where('userid',$teacher->tid)->pluck('date');
+    foreach($event_date as $data){
+        $event[$data]=Calendarevent::where(['userid'=>$teacher->tid,"date"=>$data])->pluck('event');;
+    }
+
+    return view('teacher',['teacher'=>$teacher,'class'=>$classes,'list'=>$list,"event"=>$event]);
 }
 
 
@@ -396,6 +476,83 @@ function rollcall(Request $req){
             
     }
   
+
+}
+
+// calendar event
+function calendarevent(Request $req){
+
+    $validator=Validator::make($req->all(),[
+        'event'=>'required',
+        'date'=>'required',
+        'userid'=>'required'
+    ]);
+    if($validator->passes()){
+        for($i=0;$i<count($req->event);$i++){
+            if(!Calendarevent::where(["userid"=>$req->userid,"date"=>$req->date,"event"=>$req->event[$i]])->exists()){
+            Calendarevent::create([
+                "userid"=>$req->userid,
+                "event"=>$req->event[$i],
+                "date"=>$req->date,
+            ]);
+            }
+        }
+    }
+
+
+     return response()->json(["message"=>"success"], 200);
+}
+
+
+
+// assignment
+function assignment(Request $req){
+        $validator=Validator::make($req->all(),[
+            'title'=>"required",
+            'detail'=>'required',
+            'year'=>"required",
+            'major'=>'required',
+            
+        ]);
+        if($validator->passes()){
+            $token=Str::random(60);
+            Assignment::create([
+                "title"=>$req->title,
+                "detail"=>$req->detail,
+                "year"=>$req->year,
+                "major"=>$req->major,
+                "tid"=>$req->tid,
+                "date"=>date("Y-m-d"),
+                "token"=>$token,
+            ]);
+
+            event(new AssignmentEvent($req->tid,$token,$req->year,$req->major));
+            return response()->json(["message"=>"success"], 200);
+        }
+}
+
+function assanswer(Request $req){
+    $validator=Validator::make($req->all(),[
+        'to'=>"required",
+       'sub'=>"required",
+       'detail'=>"required",
+       'list.*'=>'mimes:png',
+    ]);
+    if($validator->passes()){
+        return response()->json(["type"=>gettype($req->list),"kee"=>$req->list],200);
+    }
+
+    if($validator->fails()){
+        $aa=json_decode(html_entity_decode($req->list),true);
+
+
+
+// json_decode(stripslashes($_POST['data']))
+        
+        $errors=$validator->errors();
+        return response()->json(["error"=>$errors,"arr"=>$aa,"f"=>$req->list,"type"=>gettype($aa)], 200);
+    }
+
 
 }
 }

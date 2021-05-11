@@ -12,6 +12,11 @@
  'teacher'=>'ဆရာ',
  'Qr-Code'=>'Qr ကုဒ်',
  'download'=>'ဒေါင်းလုပ်',
+ 'schedule'=>'အချိန်စာရင်း',
+ 'assignment'=>'အဆိုင်းမန့်',
+ 'attendance chart'=> 'Attendance ဇယား',
+ 'attendance leaderboard'=>'Attendance ဦးဆောင်စာရင်း',
+
  ]
 ?>
 

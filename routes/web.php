@@ -10,6 +10,7 @@ use App\Models\Attendance;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LocalizationController;
 use App\Events\MyEvent;
+
 use App\Http\Controllers\PdfController;
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +42,16 @@ Route::get('/verification',[LoginController::class,'verify']);
 Route::view('/test/notisent','notisent');
 Route::post('/noti/sent',function (Request $test) {
 
-event(new MyEvent("hein htet aung"));
-    return "Event has been sent!";});
+// event(new MyEvent(12));
+//     return "Event has been sent!";});
+
+event(new Assignment("blah blah"));
+return "Everything will be ok";
+});
 
 Route::view('/test/notitest','notitest');
+
+// Route::view('/dd','pdf_view');
 // Route::view('/aa','email/spr');
 // Route::get('/test',function(){
 //     $aa=urlencode('heinhtetaung@gmalil.com');
@@ -159,7 +166,7 @@ Route::get('teacher/password/reset/{token}',function(Request $request,$token){
 Route::group(['middleware' => ['teacherPage']], function () {
     Route::get('/teacher/logout',[LoginController::class,'teacher_logout']);
     Route::get('/teacher',[LoginController::class,'teacher']);
-    Route::get('/teacher/pdf', [PdfController::class, 'createPDF']);      //pdf
+    Route::get('/teacher/pdf/{year}', [PdfController::class, 'createPDF']);      //pdf
     Route::get('/rollcall/{token}',function(Request $request,$token){
         $checktoken=Rollcall::where('token',$token)->first(); //tid
         if(empty($checktoken)){
@@ -171,6 +178,7 @@ Route::group(['middleware' => ['teacherPage']], function () {
             
         }
     });
+  
 });
 
 

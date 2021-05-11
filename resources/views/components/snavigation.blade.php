@@ -6,7 +6,7 @@
      
             <li class="dropdown dropdown-notifications" style="list-style: none;"  data-toggle="collapse" data-target="#noti" aria-expanded="false" aria-controls="noti">
                 <a href="#notifications-panel"  data-toggle="collapse" href="#noti" role="button" aria-expanded="false" aria-controls="noti">
-                    <i  class="far fa-bell  w-50 text-dark" style="font-size:30px;cursor:pointer;"><span class="badge bg-danger rounded-circle text-white notification-icon" data-count="0" style="width:15px;height:15px;font-size:10px;line-height:10px;position: absolute;top:0%;left:90%;">
+                    <i  class="far fa-bell  w-50 text-dark" style="font-size:30px;cursor:pointer;"><span class="badge bg-danger rounded-circle text-white notification-icon" data-count="0" id="count" style="width:15px;height:15px;font-size:10px;line-height:10px;position: absolute;top:0%;left:90%;">
                         0</span></i>
                 </a>
                 </li>
@@ -31,17 +31,25 @@
 <div class=" collapse shadow p-3  mt-2 bg-light col-12 col-md-5 col-lg-4 rounded mr-lg-3 mr-md-2" id="noti" style="float: right;z-index:99999;position: absolute;right:0;">
     <h4>Notifications</h4>
     <hr>
-    <div>
-    <div class="d-flex justify-content-between">
-        
-            <img src="https://i.ibb.co/ZzqN21h/Group-1-1.png" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
-       
-            <p class="pl-2 text-left" id="noti_about">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-            
-           
-    </div>
-    <small class="text-right text-info" style="float:right;">1 hour ago</small>
-</div>
+
+    <div id="noti_lists"></div>
+    @foreach (session('sanoti') as $item)
+    <div >
+      <div class="d-flex justify-content-between">
+          
+              <img src="{{asset('uploads/teacher_image/')}}<?php echo "/".$item['img'];?>" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
+            <div style="width:90%;">
+             
+              <p class="pl-2 text-left  mb-0" id="noti_about" >{{$item['name']}}  created assignment.</p>
+              {{-- <small class="ml-2 bg-info px-2 text-white rounded">{{$item['label']}}</small>   --}}
+            </div> 
+             
+      </div>
+      <small class="text-right text-info" style="float:right;">{{$item['date']}}</small>
+  </div>
+  <hr>
+    @endforeach
+
 
 </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -50,24 +58,78 @@
     
     <script type="text/javascript">
     
-    
      // Enable pusher logging - don't include this in production
      Pusher.logToConsole = true;
         Pusher.log = function(msg) {
       console.log(msg);
     };
+
+    var Group=document.getElementById("noti_lists");
+
+    function notiadd(data){
+      var group=document.createElement("div");
+          group.className="my-3"
+          var group2=document.createElement("div");
+          group2.className="d-flex justify-content-between";
+          var group3=document.createElement("div");
+          group3.style.width="90%";
+          var image=document.createElement("img");
+          image.src="http://localhost:8000/uploads/teacher_image/"+data["img"];
+          image.style.width="50px";
+          image.style.height="50px";
+          image.className="img-circle";
+
+          var text=document.createElement("p");
+          text.className="pl-2 text-left mb-0";
+          text.style.width="90%";
+          text.innerText=data["name"] + " create assignment";
+
+          // var label=document.createElement("small");
+          // label.className="ml-2 bg-info px-2 text-white rounded";
+          // label.innerText=data["label"];
+
+          group2.appendChild(image);
+          group2.appendChild(text);
+          // group3.appendChild(label);
+          // group2.appendChild(group3);
+
+          var time=document.createElement("small");
+          time.className="text-info mb-2";
+          time.style.cssFloat="right";
+          time.innerText="1 hour ago";
+
+          var hr=document.createElement("hr");
+         
+          group.appendChild(group2);
+          group.appendChild(time);
+          group.appendChild(hr);
+
+          Group.insertBefore(group,Group.firstChild);
+    }
     
         var pusher = new Pusher('c85db90d744de13b28e3', {
           cluster: 'ap1'
         });
+        var i=parseInt(document.getElementById("count").innerHTML);
     
         var channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
-          alert(data);
-          console.log(data);
-       
+         
+          notiadd(data);
+          
           console.log("adf"+JSON.stringify(data));
-        document.getElementById('noti_about').innerHTML=data;
+          document.getElementById("count").innerHTML=++i;
+        // document.getElementById('noti_about').innerHTML=JSON.stringify(data['message']);
+        });
+
+        var assignment_channel = pusher.subscribe('assignment'+ "<?php echo session('syear');echo session('smajor');?>");
+        assignment_channel.bind('my-event', function(data) {
+         
+       notiadd(data);
+      //  alert(data["label"]);
+          console.log("hadsfh"+JSON.stringify(data));
+          document.getElementById("count").innerHTML=++i;
+        // document.getElementById('noti_about').innerHTML=JSON.stringify(data['message']);
           
     
       });

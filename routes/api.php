@@ -2,6 +2,7 @@
 use App\Http\Controllers\Api\StudentController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,4 +40,14 @@ Route::post('rollcall',[LoginController::class,'rollcall']);
 
 //profile
 Route::post('tprofile_edit',[LoginController::class,'tprofile_edit']);
+
+// event
+Route::post('event',[LoginController::class,"calendarevent"]);
+
+// assignment
+Route::post('assignment',[LoginController::class,"assignment"]);
+
+Route::post('assanswer',[LoginController::class,"assanswer"]);
+
+
 

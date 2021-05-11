@@ -78,13 +78,18 @@ padding:15px;
  body:not(.modal-open){
   padding-right: 0px !important;
 }
+.custom-control-input:checked~.custom-control-label::before {
+  background-color: #FF66CB;
+    border-color: #FF66CB;
+  -webkit-box-shadow: none;
+}
 
 </style>
 </head>
 <body>
 
    <x-tnavigation/>
- 
+
     
 {{-- profile-content --}}
     <div class="container my-3  rounded " style="background-color:#FFE3EF; z-index:-1!important;">
@@ -97,7 +102,7 @@ padding:15px;
                     <div id="status" class="col-12 text-white rounded">
                         <p class="font-weight-bold text-left pt-1 upper">{{$teacher->name}}</p>
                         <div class="d-flex justify-content-between pb-0 mb-0">
-                            <p class=" p-1 rounded text-left blur">{{$teacher->tid}}</p>
+                            <p class=" p-1 rounded text-left blur" id="user_id">{{$teacher->tid}}</p>
                             <p class=" p-1 rounded text-right blur" >{{$teacher->department}}</p>
                        </div>
                     </div>
@@ -163,7 +168,7 @@ padding:15px;
     {{--  --}}
     <div class="container">
     <div class="row justify-content-around bg-light my-3 rounded">
- <a href="/student/scan" class=" col-4 mt-5 mb-4  bg-white shadow-sm" id="scan">
+ <a href="" class=" col-4 mt-5 mb-4  bg-white shadow-sm" id="scan" data-toggle="modal" data-target="#assignment">
             <center><div   class="  rounded pt-2  " >
             
                 <img src="https://img.icons8.com/fluent-systems-filled/34/26e07f/task.png" class="pt-2"/>
@@ -172,10 +177,10 @@ padding:15px;
         </a>
 
 
-        <a href="/student/scan" class=" col-4 mt-5 mb-4  bg-white shadow-sm" id="scan">
+        <a href="" class=" col-4 mt-5 mb-4  bg-white shadow-sm" id="scan"  data-toggle="modal" data-target="#inbox">
             <center><div   class="  rounded pt-2 pb-1 " >
             
-                <img src="https://img.icons8.com/color/34/26e07f/mailbox-closed-flag-down--v1.png" class="pt-2"/>
+                <i class="fas fa-inbox pt-2" style="font-size: 36px;color:blue;"></i>
             <p class="text-center text-dark pt-1">Inbox</p>
         </div>   </center>
         </a>
@@ -236,11 +241,8 @@ padding:15px;
 {{-- attendence list --}}
 <div class="container" id="attendence-list" >
     <br>
-    {{-- <button class="btn"  class="container  " style="background-color:#EEA4B6">
-    <i class="fas fa-filter"></i>
-</button> --}}
 
-    <button class="btn" id="print" class="container"><a href="/teacher/pdf" class="text-white">
+    <button class="btn" id="print" class="container" data-toggle="modal" data-target="#download_check"><a href="#" class="text-white" >
         <i class="fas fa-download"></i></a>
     </button>
     <br>
@@ -307,20 +309,36 @@ padding:15px;
 </div>
 
 <!--calendar  Modal -->
-<div class="modal fade" id="calendar_event" tabindex="-1" aria-labelledby="calendar_eventLabel" aria-hidden="true">
+<div class="modal fade my-5 " id="calendar_event" tabindex="-1" aria-labelledby="calendar_eventLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn " data-dismiss="modal" aria-label="Close">&times;</button>
-        </div>
+        <div class="d-flex justify-content-between px-3 pt-4">
+            <h5 class="modal-title" id="ppeditLabel">Add Event</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+              <span aria-hidden="true"  style="font-size:30px !important;color:red;">&times;</span>
+            </button>
+          </div>
         <div class="modal-body">
-   blah blah
+            <form  id="event_form" >
+                @csrf
+                <div id="list_group" class="swing">
+            <input type="text" name="" id="input1" class="list mb-4  show text-left" placeholder="Event Name">
+            <div id="input_group"></div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+
+          <div id="add-to-list" class="border btn text-center col-12 " style=" -webkit-box-shadow: none;"><i class="far fa-plus-square"></i></div>
+         
         </div>
+
+        <div id="event_list" class="col-12 d-flex row">
+
+        </div>
+             
+  
+      
+          <button type="submit" class="btn text-white mb-3 mx-3 "  style="background-color: #ff007f;">Save</button>
+ 
+        </form>
       </div>
     </div>
   </div>
@@ -341,7 +359,7 @@ padding:15px;
             @csrf
             <div class="d-flex justify-content-between">
                 <div id="image" class="col-3">
-                <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>"  id="imagepreview" class="rounded bg-light" width="75px" height="75px">
+                <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>"  id="imagepreview" class="rounded bg-light border border-info" width="75px" height="75px">
                 <label for="profile-edit" style="position: relative;;top:-24px;left:-1px;width:75px;background:rgba(0,0,0,0.6);cursor: pointer;"  class="rounded text-white text-center">upload</label>
                 <input type="file"  name="profile-edit" class="d-none" id="profile-edit" value="{{$teacher->img}}" onchange="readURL(this)"> 
                 <small class="d-none" id="image-value">{{$teacher->img}}</small>
@@ -358,12 +376,200 @@ padding:15px;
   </div>
 
 
-  {{-- <div class="px-2 py-2 shadow  mr-5 mb-5" style="width:50px;height:50px;position: fixed;bottom:0;right:0;border-radius:100%;line-height:50px;background:#ff007f;">
-    <i class="far fa-comment" style="font-size: 30px;text-align:center;color:white;"></i>
-  </div> --}}
+{{-- download check --}}
+  <div class="modal fade my-5" id="download_check" tabindex="-1" aria-labelledby="download_check" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="d-flex justify-content-between px-3 pt-4">
+          <h5 class="modal-title" id="download_check">Which's year you want to download?</h5>
+        </div>
+        <div class="modal-body">
+            <form method="POST" id="download_form" >
+            @csrf
+            <div class="custom-control custom-radio mb-3">
+                <input class="custom-control-input" type="radio" name="customRadioInline1" id="inlineRadio1" value="all" checked>
+                <label class="custom-control-label" for="inlineRadio1">All</label>
+              </div>
+              <div class="custom-control custom-radio mb-3">
+                <input class="custom-control-input" type="radio" name="customRadioInline1" id="inlineRadio2" value="First Year">
+                <label class="custom-control-label" for="inlineRadio2">First Year</label>
+              </div>      
+                <div class="custom-control custom-radio mb-3">
+                <input class="custom-control-input" type="radio" name="customRadioInline1" id="inlineRadio3" value="Second Year">
+                <label class="custom-control-label" for="inlineRadio3">Second Year</label>
+              </div>        
+              <div class="custom-control custom-radio mb-3">
+                <input class="custom-control-input" type="radio" name="customRadioInline1" id="inlineRadio4" value="Third Year">
+                <label class="custom-control-label" for="inlineRadio4">Third Year</label>
+              </div>
+        </div>
+      
+          <button type="submit" class="btn text-white mb-3 mx-3" style="background-color: #ff007f;float: right;margin-top:-10px;">Download</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{{-- assignment modal --}}
+<div class="modal fade my-5" id="assignment" tabindex="-1" aria-labelledby="assignmentLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between px-3 pt-4">
+        <h5 class="modal-title" id="assignmentLabel">Create Assignment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+          <span aria-hidden="true"  style="font-size:30px !important;color:red;">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form   id="assignment_form" >
+          @csrf
+             
+          <input type="text" name="name" class="text-left mb-4" id="title" value="" placeholder="Title">
+          <div class="form-group mb-4">
+            <label for="detail">Detail</label>
+            <textarea class="form-control" id="detail" rows="3" placeholder="Detail"></textarea>
+          </div>
+
+          <div class="form-group contianer mb-4">
+            <label for="">To</label>
+            <div class="row justify-content-around">
+            <select class="form-control col-5 " id="amajor">
+           
+              <option>Myanmar</option>
+              <option >English</option>
+              <option >Japan</option>
+          </select>
+      
+          <select class="form-control col-5" id="ayear">
+
+              <option>First Year</option>
+              <option >Second Year</option>
+              <option >Third Year</option>
+          </select>
+            </div>
+          </div>
+        
+      </div>
+    
+   
+        <button type="submit" class="btn text-white  mx-3  mb-2" style="background-color: #ff007f;"> Send</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{{-- inbox modal --}}
+<div class="modal fade my-5" id="inbox" tabindex="-1" aria-labelledby="inboxLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="d-flex justify-content-between px-3 pt-4">
+          <h5 class="modal-title" id="inboxLabel">     <i class="fas fa-inbox " style="color:blue;"></i> Inbox</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+            <span aria-hidden="true"  style="font-size:30px !important;color:red;">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <input type="text" name="" id="searchinbox" class="col-12"style="border-radius: 25px;" placeholder="Search ">
+
+            <div id="inbox_content"  style="overflow-y: auto;height:400px; overflow-style: auto;-webkit-overflow-scrolling: display-none;">
+
+            {{-- d mhr for loop --}}
+         
+            <div id="inbox_body" class="d-flex    my-2 container justify-content-even " style="border-radius:5px;cursor: pointer;background:rgba(238, 104, 202,0.5)" onclick="openview(this)">
+                <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
+                <div class="col-9  text-left py-3 ">
+                   <p class="mb-0 ml-0">Jasica Koel</p>
+                    <small style="color:white;" >Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf </small>
+                </div>
+                <div class="py-3 text-right ">
+                    <span style="color:white;">3/5/21</span>
+                </div>
+            </div>
+
+
+            <div id="inbox_body" class="d-flex    my-2 container justify-content-even " style="border-radius:5px;cursor: pointer;background:rgba(238, 104, 202,0.5)" onclick="openview(this)">
+              <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
+              <div class="col-9  text-left py-3 ">
+                 <p class="mb-0 ml-0">Jasica Koel</p>
+                  <small style="color:white;" >Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf </small>
+              </div>
+              <div class="py-3 text-right ">
+                  <span style="color:white;">3/5/21</span>
+              </div>
+          </div>
+
+
+          <div id="inbox_body" class="d-flex    my-2 container justify-content-even " style="border-radius:5px;cursor: pointer;background:rgba(238, 104, 202,0.5)" onclick="openview(this)">
+            <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
+            <div class="col-9  text-left py-3 ">
+               <p class="mb-0 ml-0">Jasica Koel</p>
+                <small style="color:white;" >Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf </small>
+            </div>
+            <div class="py-3 text-right ">
+                <span style="color:white;">3/5/21</span>
+            </div>
+        </div>
+
+
+        <div id="inbox_body" class="d-flex    my-2 container justify-content-even " style="border-radius:5px;cursor: pointer;background:rgba(238, 104, 202,0.5)" onclick="openview(this)">
+          <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
+          <div class="col-9  text-left py-3 ">
+             <p class="mb-0 ml-0">Jasica Koel</p>
+              <small style="color:white;" >Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf </small>
+          </div>
+          <div class="py-3 text-right ">
+              <span style="color:white;">3/5/21</span>
+          </div>
+      </div>
+
+
+      <div id="inbox_body" class="d-flex    my-2 container justify-content-even " style="border-radius:5px;cursor: pointer;background:rgba(238, 104, 202,0.5)" onclick="openview(this)">
+        <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
+        <div class="col-9  text-left py-3 ">
+           <p class="mb-0 ml-0">Jasica Koel</p>
+            <small style="color:white;" >Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf </small>
+        </div>
+        <div class="py-3 text-right ">
+            <span style="color:white;">3/5/21</span>
+        </div>
+    </div>
+
+         
+
+
+            </div>
+
+            {{-- hahah --}}
+  <div id="openview" style="display: none;"">
+    <span class="text-dark " style="cursor: pointer;" onclick="close_view()"> <i class="fas fa-arrow-left py-3"></i></span> 
+    <hr class="mt-0">
+    {{-- subject --}}
+    <p class="mb-0 " style="margin-left: 55px;">Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf</p>
+
+    <div id="inbox-oheader" class="d-flex">
+      <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 40px;height:40px;" alt="">
+      <div class="col-9  text-left py-3 ">
+        <b><p class="mb-0 pb-0">1MM-100</p></b>
+         <small style="color:#777777;" class="mt-0">mountchitmyrsuu@gmail.com </small>
+     </div>
+    </div>
+    <iframe src="{{asset('uploads/files/AttendanceList(all).pdf')}}" >ads
+    </iframe>
+  </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
    <script src="{{asset('js/calendar.js')}}"></script> 
+
 
 
    <script type="text/javascript">
@@ -374,6 +580,9 @@ padding:15px;
 	
 	//It also supports NodeList
 	VanillaTilt.init(document.querySelectorAll("#list"));
+
+
+
 </script>
 
    <script>
@@ -432,6 +641,26 @@ form.onsubmit=function(e){
     });
 }
 
+// assignment_form
+let form_assing=document.forms["assignment_form"];
+form_assing.onsubmit=function(e){
+  e.preventDefault();
+  let title=document.getElementById("title").value;
+  let detail=document.getElementById("detail").value;
+  let year=document.getElementById("ayear").value;
+  let major=document.getElementById("amajor").value;
+  let tid=document.getElementById('user_id').innerText;
+
+  axios.post('/api/assignment',{
+    'title':title,
+    'detail':detail,
+    'year':year,
+    'major':major,
+    'tid':tid
+  }).then(res=>{
+    console.log(res);
+  })
+}
 
 let form_edit=document.forms['profile_edit'];
 form_edit.onsubmit=function(e){
@@ -460,6 +689,71 @@ form_edit.onsubmit=function(e){
        window.location='/teacher';
     });
 }
+
+
+// download
+let download_form=document.forms['download_form'];
+download_form.onsubmit=function(e){
+    e.preventDefault();
+    let years=document.getElementsByName("customRadioInline1");
+    let year;
+    for(var i = 0; i < years.length; i++){
+    if(years[i].checked){
+        year = years[i].value;
+    }
+}
+console.log(year)
+window.location="/teacher/pdf/"+year;
+
+}
+
+//calendar
+document.getElementById('add-to-list').onclick = function() {
+  var list = document.getElementById('input_group');
+  var newinput = document.createElement('input');
+  newinput.type="text";
+  newinput.className="mb-4 list";
+  newinput.placeholder="Event Name";
+  newinput.name="inputs";
+//   newinput.innerHTML = 'A new item';
+  list.appendChild(newinput);
+  setTimeout(function() {
+    newinput.className = newinput.className + " show";
+  }, 10);
+}
+var calendar_form = document.forms["event_form"];
+    calendar_form.onsubmit = function(e) {
+        e.preventDefault();
+        var user_id = document.getElementById("user_id").innerText;
+
+        var date=localStorage.getItem("date");
+        var events = [];
+        var input1 = document.getElementById("input1");
+        if (input1.value.length > 0) {
+            events.push(input1.value);
+        }
+
+        let inputs = document.getElementsByName("inputs");
+        for (let i = 0; i < inputs.length; i++) {
+            console.log(inputs[i].value);
+            if (inputs[i].value.length > 0) {
+                events.push(inputs[i].value);
+            }
+        }
+
+        console.log(events);
+        axios.post('/api/event', {
+            'userid': user_id,
+            'event': events,
+            'date': date
+        }).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+   
+
     
 //filter
 let items=document.getElementById("stu_list").children;
@@ -520,8 +814,70 @@ function focusInput(e){
     document.getElementById("search").focus();
 }
 
+//event-list show
+
+function event_list(date){
+    var group= document.getElementById('event_list');
+    group.innerHTML="";
+   
+var arr=<?php echo json_encode($event);?>;
+var list=arr[date];
+console.log(list.length);
+for(var i=0;i<list.length;i++){
+    var awine=document.createElement("div");
+    awine.style.height="10px";
+    awine.style.width="10px";
+   awine.className="rounded-circle d-inline-block border ";
+   awine.style.backgroundColor= '#' +Math.floor(Math.random()*16777215).toString(16);
+    var element=document.createElement("div");
+
+    element.style.position="relative";
+   element.style.top=-24+"px";
+   element.style.left=13+"px";   
+    var uu=document.createElement("div");
+    uu.className="col-4  ";
+    awine.id="e"+i;
+   
+    element.innerText=list[i];
+    group.appendChild(uu);
+    uu.appendChild(awine);
+   uu.appendChild(element);
+    
+}
+}
+
+function event_show(){
+var dates=<?php echo json_encode($event);?>;
+Object.keys(dates).forEach(function (key) {
+    var awine=document.createElement("div");
+    awine.style.height="12px";
+    awine.style.width="10px";
+    awine.style.left="-21px";
+    awine.style.position="relative";
+    awine.style.top="-1px";
+   awine.className="rounded-circle d-inline-block border ";
+   awine.style.backgroundColor= '#' +Math.floor(Math.random()*16777215).toString(16);
+   document.getElementById(key).appendChild(awine); 
+   console.log("aa"+key);
+});
+}
+event_show();
+
+
+
+// openview-inbox
+function openview(e){
+    document.getElementById("inbox_content").style.display="none";
+    document.getElementById("openview").style.display="block";
+}
+function close_view(e){
+    document.getElementById("inbox_content").style.display="block";
+    document.getElementById("openview").style.display="none";
+}
 </script>
 </body>
 </html>
 </body>
 </html>
+
+
