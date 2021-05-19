@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\Studentpasswordreset;
 use App\Models\Teacherpasswordreset;
 use App\Models\Rollcall;
@@ -10,7 +11,7 @@ use App\Models\Attendance;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LocalizationController;
 use App\Events\MyEvent;
-
+use Spatie\Analytics\Period;
 use App\Http\Controllers\PdfController;
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,15 @@ use App\Http\Controllers\PdfController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::get('/google-analytics',function(){
+
+
+//fetch the most visited pages for today and the past week
+    $dd=Analytics::fetchMostVisitedPages(Period::days(7));
+    print_r($dd);
+});
 
 Route::get('/', function () {
     $locale=App::currentLocale();
@@ -179,6 +189,27 @@ Route::group(['middleware' => ['teacherPage']], function () {
         }
     });
   
+});
+
+
+
+//admin
+Route::view('admin','adminlogin');
+Route::group(['middleware'=>['adminPage']],function(){
+
+    Route::get('/admin/dashboard',[LoginController::class,'admindashboard']);
+    Route::get('/admin/logout',[LoginController::class,'admin_logout']);
+    Route::get('/admin/dashboard/teacher',[LoginController::class,'admin_teacher']);
+    Route::get('/admin/dashboard/student',[LoginController::class,'admin_student']);
+    Route::get('/admin/dashboard/feedback',[LoginController::class,'admin_feedback']);
+    Route::get('/admin/dashboard/deleteteacher/{tid}',function(Request $req,$tid){
+        Teacher::where('tid',$tid)->delete();
+        return redirect('/admin/dashboard/teacher');
+    });
+    Route::get('/admin/dashboard/deletestudent/{rollno}',function(Request $req,$rollno){
+        Student::where('rollno',$rollno)->delete();
+        return redirect('/admin/dashboard/student');
+    });
 });
 
 

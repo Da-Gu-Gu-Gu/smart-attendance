@@ -112,6 +112,7 @@ a {
 .left,
 .moves,
 .right {
+    color: white !important;
     transition: all 0.2s;
     border-radius: 20px;
     width: 50%;
@@ -119,6 +120,7 @@ a {
 }
 
 .right {
+    /* color: gray; */
     background-position-x: right;
 }
 

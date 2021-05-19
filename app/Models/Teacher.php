@@ -9,5 +9,7 @@ class Teacher extends Model
 {
     use HasFactory;
     public $timestamps=false;
+    protected $fillable=['img','name','email','department',
+    'tid','password'];
     
 }

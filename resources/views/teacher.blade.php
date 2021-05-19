@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="icon" href="https://i.ibb.co/ZzqN21h/Group-1-1.png" type="image/png" >
+ 
+    <title>Smart Attendance</title>
     <x-link/>
     <style>
         *{
@@ -480,88 +482,86 @@ padding:15px;
             <div id="inbox_content"  style="overflow-y: auto;height:400px; overflow-style: auto;-webkit-overflow-scrolling: display-none;">
 
             {{-- d mhr for loop --}}
+
+
+            <div class="container mt-2 ">
+              <div class="d-flex text-center text-white shadwo-sm  my-2" id="menu">
+                  <div  class="left  col-6 moves" id="ass" onclick="first();" style="color:gray;">
+                   Assignment
+                    
+                  </div>
+                  <div  id="notice" class=" col-6" onclick="second();" style="color: gray">
+                    Notice
+                      
+                  </div>
+              </div>
+                </div>
          
-            <div id="inbox_body" class="d-flex    my-2 container justify-content-even " style="border-radius:5px;cursor: pointer;background:rgba(238, 104, 202,0.5)" onclick="openview(this)">
-                <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
-                <div class="col-9  text-left py-3 ">
-                   <p class="mb-0 ml-0">Jasica Koel</p>
-                    <small style="color:white;" >Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf </small>
-                </div>
-                <div class="py-3 text-right ">
-                    <span style="color:white;">3/5/21</span>
-                </div>
-            </div>
-
-
-            <div id="inbox_body" class="d-flex    my-2 container justify-content-even " style="border-radius:5px;cursor: pointer;background:rgba(238, 104, 202,0.5)" onclick="openview(this)">
-              <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
-              <div class="col-9  text-left py-3 ">
-                 <p class="mb-0 ml-0">Jasica Koel</p>
-                  <small style="color:white;" >Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf </small>
-              </div>
-              <div class="py-3 text-right ">
-                  <span style="color:white;">3/5/21</span>
-              </div>
+            <div id="first">
+            @foreach ($noti as $data)
+            <div id="inbox_body" class="d-flex    my-2 container justify-content-between " style="border-radius:5px;cursor: pointer;" onclick="openview(this)" data='<?php echo json_encode($data);?>'>
+               <img src="{{asset('uploads/student_image/')}}<?php echo '/'.$data['img'];?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
+               <div class="col-8  text-left py-3 ">
+                  <p class="mb-0 ml-0">{{$data['name']}}</p>
+                   <small style="color:#777777;" >{{$data['title']}} </small>
+               </div>
+               <div class="py-3 pr-0 text-right ">
+                   <small style="color:white;">{{$data['date']}}</small>
+               </div>
+           </div>
+            @endforeach
           </div>
 
 
-          <div id="inbox_body" class="d-flex    my-2 container justify-content-even " style="border-radius:5px;cursor: pointer;background:rgba(238, 104, 202,0.5)" onclick="openview(this)">
-            <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
-            <div class="col-9  text-left py-3 ">
-               <p class="mb-0 ml-0">Jasica Koel</p>
-                <small style="color:white;" >Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf </small>
-            </div>
-            <div class="py-3 text-right ">
-                <span style="color:white;">3/5/21</span>
-            </div>
-        </div>
-
-
-        <div id="inbox_body" class="d-flex    my-2 container justify-content-even " style="border-radius:5px;cursor: pointer;background:rgba(238, 104, 202,0.5)" onclick="openview(this)">
-          <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
-          <div class="col-9  text-left py-3 ">
-             <p class="mb-0 ml-0">Jasica Koel</p>
-              <small style="color:white;" >Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf </small>
-          </div>
-          <div class="py-3 text-right ">
-              <span style="color:white;">3/5/21</span>
-          </div>
-      </div>
-
-
-      <div id="inbox_body" class="d-flex    my-2 container justify-content-even " style="border-radius:5px;cursor: pointer;background:rgba(238, 104, 202,0.5)" onclick="openview(this)">
-        <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
-        <div class="col-9  text-left py-3 ">
-           <p class="mb-0 ml-0">Jasica Koel</p>
-            <small style="color:white;" >Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf </small>
-        </div>
-        <div class="py-3 text-right ">
-            <span style="color:white;">3/5/21</span>
-        </div>
-    </div>
+        <div id="second" style="display: none">
+          @foreach ($anoti as $data)
+         
+          <div  id="inbox_body" class="d-flex   my-2 container justify-content-between " style="border-radius:5px;cursor: pointer;" onclick="openview1(this)" data='<?php echo json_encode($data);?>'>
+             
+             <img src="{{asset('uploads/student_image/')}}<?php echo '/'.$data['img'];?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
+             <div class="col-8  text-left py-3 ">
+                <p class="mb-0 ml-0">Admin</p>
+                 <small style="color:#777777;" >{{$data['title']}} </small>
+             </div>
+             <div class="py-3 pr-0 text-right ">
+                 <small style="color:white;">{{$data['date']}}</small>
+             </div>
+         </div>
+   
+          @endforeach
+         </div>
 
          
 
 
             </div>
 
-            {{-- hahah --}}
-  <div id="openview" style="display: none;"">
-    <span class="text-dark " style="cursor: pointer;" onclick="close_view()"> <i class="fas fa-arrow-left py-3"></i></span> 
-    <hr class="mt-0">
-    {{-- subject --}}
-    <p class="mb-0 " style="margin-left: 55px;">Hello br nyr tar ta kar hah ade kfas mkladsjf jlaksdf</p>
-
-    <div id="inbox-oheader" class="d-flex">
-      <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$teacher->img;?>" class="my-3  rounded-circle" style="width: 40px;height:40px;" alt="">
-      <div class="col-9  text-left py-3 ">
-        <b><p class="mb-0 pb-0">1MM-100</p></b>
-         <small style="color:#777777;" class="mt-0">mountchitmyrsuu@gmail.com </small>
-     </div>
-    </div>
-    <iframe src="{{asset('uploads/files/AttendanceList(all).pdf')}}" >ads
-    </iframe>
-  </div>
+           
+              {{-- hahah --}}
+              <div id="openview" style="display: none;"">
+                <span class="text-dark " style="cursor: pointer;" onclick="close_view()"> <i class="fas fa-arrow-left py-3"></i></span> 
+            
+                <div id="inbox-oheader" class="d-flex shadow-sm mb-4">
+                    <div class=" pl-3">
+                  <img id="oimg" src="" class="my-3  rounded-circle " style="width: 40px;height:40px;" alt="">
+                </div>
+                  <div class="col-7  text-left py-3 ">
+                    <b><p class="mb-0 pb-0" id="oname">1MM-100</p></b>
+                     <small style="color:#777777;" class="mt-0" id="oid">mountchitmyrsuu@gmail.com </small>
+                 </div>
+                 <small style="color: #777777" class="text-right py-3 col-4 pr-4 " id="odate">2021-05-10</small>
+                </div>
+                <span id="otitle" style="color:#a55cdd;">dr ka title</span>
+                <div class="my-3" id="gg">
+                <a href="" id="dfile" download class="text-dark"><i class="fas fa-file-download" style="font-size:1.4rem;"></i><br><small id="dtext" ></small></a>
+              </div>
+                <p class="mt-3" id="odetail">Dear Gair,
+                    ah dfadsafdasfkjsdajl;fj;ldsafjlasdfl
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus doloribus nesciunt excepturi explicabo odit laborum veritatis. Ea itaque reprehenderit unde porro ipsam laborum aspernatur hic, explicabo rerum culpa fugiat corporis!
+                </p>
+                {{-- <iframe src="{{asset('uploads/files/AttendanceList(all).pdf')}}" >ads
+                </iframe> --}}
+              </div>
         </div>
       </div>
     </div>
@@ -588,6 +588,10 @@ padding:15px;
    <script>
     let Chartt = document.getElementById('chart');
 let Leaderboard = document.getElementById('leaderboard');
+let ass = document.getElementById('ass');
+let not= document.getElementById('notice');
+let  padama = document.getElementById('first');
+let dutaya = document.getElementById("second");
 let rollcall= document.getElementById('rollcall');
 let attendence_list = document.getElementById("attendence-list");
 function changemajor(e){
@@ -608,6 +612,22 @@ rollcall.style.display = "none";
 Chartt.classList.remove("moves");
 Chartt.classList.remove("left");
 Leaderboard.classList.add("right");
+}
+
+function first() {
+
+ass.classList.add("left");
+padama.style.display = "block";
+dutaya.style.display = "none";
+not.classList.remove("right");
+}
+
+function second() {
+dutaya.style.display = "block";
+padama.style.display = "none";
+ass.classList.remove("moves");
+ass.classList.remove("left");
+not.classList.add("right");
 }
 
 function readURL(image){
@@ -864,12 +884,40 @@ Object.keys(dates).forEach(function (key) {
 event_show();
 
 
-
-// openview-inbox
 function openview(e){
+    console.log(e.getAttribute("data"));
+    var noti=JSON.parse(e.getAttribute("data"));
+    document.getElementById('oname').innerText=noti.name;
+    document.getElementById('odate').innerText=noti.date;
+    document.getElementById('oid').innerText=noti.rollno;
+    document.getElementById('otitle').innerText=noti.title.toUpperCase();
+    document.getElementById('odetail').innerText=noti.detail;
+    document.getElementById("gg").style.display="block";
+    document.getElementById('dfile').href="{{asset('uploads/files/')}}"+"/"+noti.file;
+    document.getElementById('dtext').innerText=noti.file;
+    document.getElementById('oimg').src="{{asset('uploads/student_image/')}}"+"/"+noti.img;
+  hoo();
+ 
+}
+function openview1(e){
+    console.log(e.getAttribute("data"));
+    var noti=JSON.parse(e.getAttribute("data"));
+    document.getElementById('oname').innerText="Admin";
+    document.getElementById('odate').innerText=noti.date;
+    document.getElementById('oid').innerText='';
+    document.getElementById('otitle').innerText=noti.title.toUpperCase();
+    document.getElementById('odetail').innerText=noti.detail;
+    document.getElementById("gg").style.display="none";
+    document.getElementById('oimg').src="{{asset('uploads/student_image/')}}"+"/"+noti.img;
+    hoo();
+}
+function hoo(){
     document.getElementById("inbox_content").style.display="none";
     document.getElementById("openview").style.display="block";
+
 }
+
+
 function close_view(e){
     document.getElementById("inbox_content").style.display="block";
     document.getElementById("openview").style.display="none";

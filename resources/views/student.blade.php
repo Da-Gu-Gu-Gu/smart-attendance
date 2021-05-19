@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="icon" href="https://i.ibb.co/ZzqN21h/Group-1-1.png" type="image/png" >
+ 
+    <title>Smart Attendance</title>
   
     <x-link/>
     <style>
@@ -286,8 +288,26 @@
             <div id="inbox_content"  style="overflow-y: auto;height:400px; overflow-style: auto;-webkit-overflow-scrolling: display-none;">
 
             {{-- d mhr for loop --}}
+         
+                <div class="container mt-2 ">
+              <div class="d-flex text-center text-white shadwo-sm  my-2" id="menu">
+                  <div  class="left  col-6 moves" id="ass" onclick="first();" style="color:gray;">
+                      Assignment
+                    
+                  </div>
+                  <div  id="notice" class=" col-6" onclick="second();" style="color: gray">
+                    Notice
+                      
+                  </div>
+              </div>
+                </div>
+       
+
+                <div id="first" style="display: block;">
+
          @foreach ($noti as $data)
-         <div id="inbox_body" class="d-flex    my-2 container justify-content-between " style="border-radius:5px;cursor: pointer;" onclick="openview(this)" data='<?php echo json_encode($data);?>'>
+    
+         <div  id="inbox_body" class="d-flex    my-2 container justify-content-between " style="border-radius:5px;cursor: pointer;" onclick="openview(this)" data='<?php echo json_encode($data);?>'>
             <img src="{{asset('uploads/teacher_image/')}}<?php echo '/'.$data['img'];?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
             <div class="col-8  text-left py-3 ">
                <p class="mb-0 ml-0">{{$data['name']}}</p>
@@ -297,7 +317,26 @@
                 <small style="color:white;">{{$data['date']}}</small>
             </div>
         </div>
+ 
          @endforeach
+        </div>
+        <div id="second" style="display: none">
+         @foreach ($anoti as $data)
+        
+         <div id="inbox_body" class="d-flex   my-2 container justify-content-between " style="border-radius:5px;cursor: pointer;" onclick="openview1(this)" data='<?php echo json_encode($data);?>'>
+            
+            <img src="{{asset('uploads/student_image/')}}<?php echo '/'.$data['img'];?>" class="my-3  rounded-circle" style="width: 45px;height:45px;" alt="">
+            <div class="col-8  text-left py-3 ">
+               <p class="mb-0 ml-0">Admin</p>
+                <small style="color:#777777;" >{{$data['title']}} </small>
+            </div>
+            <div class="py-3 pr-0 text-right ">
+                <small style="color:white;">{{$data['date']}}</small>
+            </div>
+        </div>
+  
+         @endforeach
+        </div>
             
 
 
@@ -307,23 +346,32 @@
             </div>
 
 {{-- answer form --}}
+
             <form action="POST" id="answerass" enctype="multipart/form-data" style="display: none;">
+                <br>
+                <center><span class="px-3 rounded " style="background-color: #5cdd92;display:none;" id="successass" ></span></center>
                 <span class="text-dark " style="cursor: pointer;" onclick="back()"> <i class="fas fa-arrow-left py-3"></i></span> 
                 @csrf
                 <div class="d-flex justify-content-between">
-                To:<input type="text" name="name" class="text-left mb-4" id="to"  placeholder="Teacher Id">
+                To:<input type="text" name="name" class="text-left mb-4" id="to"  placeholder="Teacher Id"  pattern="t-[0-9]+" required>
             </div>
             <div class="d-flex justify-content-between">
-                Subject:<input type="text" name="name" class="text-left mb-4" id="sub"  placeholder="Subject">
+                Subject:<input type="text" name="name" class="text-left mb-4" id="sub"  placeholder="Subject" required>
             </div>
-            <textarea  id="answerdetail"  rows="7" ></textarea>
+            <textarea  id="answerdetail"  rows="7" required></textarea>
             <div id="filesname" class="d-flex ">
 
             </div>
             <div class="d-flex justify-content-between">
-            <label for="assfiles" style="cursor: pointer;"><i class="fas fa-paperclip  px-3 py-2 rounded" style="background-color: rgba(128, 128, 128,0.6)"></i></label>
-            <input type="file" name="assfiles[]" id="assfiles" multiple class="d-none"  onchange="file_upload()">
-            <button type="submit" class="btn text-white" style="background-color: #a55cdd">Send</button>
+                <div>
+            <label for="assfiles" style="cursor: pointer;" onclick="apyout()" ><i class="fas fa-paperclip  px-3 py-2 rounded" style="background-color: rgba(128, 128, 128,0.6)"></i></label>
+            <input type="file" name="assfiles" id="assfiles"  class="d-none"  onchange="file_upload(this)">
+            <small id="fileerr" class=" text-danger"></small>
+        </div>
+            <button type="submit" class="btn text-white" style="background-color: #a55cdd" id="sendass">
+                <div class="spinner-border spinner-border-sm text-light " id="loading-icon" style="display: none;" role="status" style="vertical-align: text-top"> </div>
+                <span class="btn_text text-white text-center" style="vertical-align: middle;">Send</span>
+            </button>
         </div>
             </form>
         
@@ -365,8 +413,13 @@
       
         let Chartt = document.getElementById('chart');
 let Leaderboard = document.getElementById('leaderboard');
+   
+let ass = document.getElementById('ass');
+let not= document.getElementById('notice');
 let ad = document.getElementById('myChart');
 let table = document.getElementById("leadertable");
+let  padama = document.getElementById('first');
+let dutaya = document.getElementById("second");
 
 let rank=document.getElementById('u-rank');
 if(document.getElementById("<?php echo $student->rollno; ?>") == null){
@@ -389,6 +442,22 @@ function leaderboard() {
     Chartt.classList.remove("moves");
     Chartt.classList.remove("left");
     Leaderboard.classList.add("right");
+}
+
+function first() {
+
+ass.classList.add("left");
+padama.style.display = "block";
+dutaya.style.display = "none";
+not.classList.remove("right");
+}
+
+function second() {
+dutaya.style.display = "block";
+padama.style.display = "none";
+ass.classList.remove("moves");
+ass.classList.remove("left");
+not.classList.add("right");
 }
 
 // image preview
@@ -614,6 +683,20 @@ function openview(e){
     document.getElementById('otitle').innerText=noti.title.toUpperCase();
     document.getElementById('odetail').innerText=noti.detail;
     document.getElementById('oimg').src="{{asset('uploads/teacher_image/')}}"+"/"+noti.img;
+    hoo();
+}
+function openview1(e){
+    console.log(e.getAttribute("data"));
+    var noti=JSON.parse(e.getAttribute("data"));
+    document.getElementById('oname').innerText="Admin";
+    document.getElementById('odate').innerText=noti.date;
+    document.getElementById('oid').innerText='';
+    document.getElementById('otitle').innerText=noti.title.toUpperCase();
+    document.getElementById('odetail').innerText=noti.detail;
+    document.getElementById('oimg').src="{{asset('uploads/student_image/')}}"+"/"+noti.img;
+    hoo();
+}
+function hoo(){
     document.getElementById("inbox_content").style.display="none";
     document.getElementById("openview").style.display="block";
     document.getElementById("compose").style.display="none";
@@ -634,23 +717,28 @@ function assignment(){
 function back(){
     close_view();
 }
-var file_list={};
-function file_upload(){
+function apyout(){
     var group=document.getElementById("filesname");
-    var file=document.getElementById("assfiles");
-    for(var i=0;i<file.files.length;++i){
-        var create=document.createElement("small");
-        create.className="pr-3";
-        create.innerText=file.files.item(i).name;
-        group.appendChild(create);
-        file_list.push(file.files.item(i));
-    }
-
+    group.innerHTML="";
 }
-file_upload();
+
+function file_upload(e){
+ 
+    
+ 
+    var group=document.getElementById("filesname");
+    var create=document.createElement("small");
+       
+        create.className="pr-3";
+        create.innerText=e.files[0].name;
+        group.appendChild(create);
+}
+
 var assanswer_form=document.forms['answerass'];
 assanswer_form.onsubmit=function(e){
     e.preventDefault();
+    var success= document.getElementById("successass");
+    success.style.display="none";
     let form_data=new FormData();
     var answerdetail=document.getElementById("answerdetail");
     var to=document.getElementById("to");
@@ -658,22 +746,22 @@ assanswer_form.onsubmit=function(e){
     form_data.append("to",to.value);
     form_data.append("sub",sub.value);
     form_data.append("detail",answerdetail.value);
-    form_data.append("list",file_list);
-    // form_data.append("test","test");
-    console.log(form_data);
-   
-    // console.log(to)
-    // console.log(sub)
-    // console.log(answer)
-    console.log(file_list)
-    // alert(Object.entries(file_list));
+    var file=document.getElementById("assfiles");
+    form_data.append("attachment",file.files[0]);
+    var err=document.getElementById("fileerr");
+  
     axios.post('/api/assanswer',form_data, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(res=>{
             console.log(res);
-    //    window.location='/student';
+            if(res.data.msg=="good"){
+               success.style.display="block";
+               success.innerHTML="success";
+           
+            }
+            res.data.attachment ? err.innerHTML = res.data.attachment : err.innerHTML = '';
     });
     
     

@@ -9,16 +9,19 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Student;
 
-class Teacher implements ShouldBroadcast
+class TeacherEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message,$tid;
+    public $tid,$img,$name;
   
-    public function __construct($message,$tid)
+    public function __construct($tid,$sender)
     {
-        $this->message = $message;
+    
+        $this->img=Student::where("rollno",$sender)->first('img')->img;
+        $this->name=Student::where("rollno",$sender)->first('name')->name;
         $this->tid=$tid;
     }
   

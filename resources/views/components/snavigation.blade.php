@@ -1,4 +1,7 @@
 <div id="nav">
+  <link rel="icon" href="https://i.ibb.co/ZzqN21h/Group-1-1.png" type="image/png" >
+   
+    <title>Smart Attendance</title>
     <link rel="stylesheet" href="{{asset('css/student.css')}}">
 <div class="navbar navbar-dark shadow-lg" style="background-color: #d6b4f0;">
     <a href="/student"><div class="navbar-brand" style="text-transform: uppercase;font-weight:bold;">Student</div></a>
@@ -74,7 +77,7 @@
           var group3=document.createElement("div");
           group3.style.width="90%";
           var image=document.createElement("img");
-          image.src="http://localhost:8000/uploads/teacher_image/"+data["img"];
+          image.src="{{asset('uploads/teacher_image/')}}"+"/"+data["img"];
           image.style.width="50px";
           image.style.height="50px";
           image.className="img-circle";
@@ -84,19 +87,13 @@
           text.style.width="90%";
           text.innerText=data["name"] + " create assignment";
 
-          // var label=document.createElement("small");
-          // label.className="ml-2 bg-info px-2 text-white rounded";
-          // label.innerText=data["label"];
-
           group2.appendChild(image);
           group2.appendChild(text);
-          // group3.appendChild(label);
-          // group2.appendChild(group3);
 
           var time=document.createElement("small");
           time.className="text-info mb-2";
           time.style.cssFloat="right";
-          time.innerText="1 hour ago";
+          time.innerText="Just now";
 
           var hr=document.createElement("hr");
          
@@ -106,7 +103,40 @@
 
           Group.insertBefore(group,Group.firstChild);
     }
-    
+function notice(data){
+    var group=document.createElement("div");
+          group.className="my-3"
+          var group2=document.createElement("div");
+          group2.className="d-flex justify-content-between";
+          var group3=document.createElement("div");
+          group3.style.width="90%";
+          var image=document.createElement("img");
+          image.src="{{asset('uploads/student_image/')}}"+"/"+data["img"];
+          image.style.width="50px";
+          image.style.height="50px";
+          image.className="img-circle";
+
+          var text=document.createElement("p");
+          text.className="pl-2 text-left mb-0";
+          text.style.width="90%";
+          text.innerText="Admin sent noitce statement";
+
+          group2.appendChild(image);
+          group2.appendChild(text);
+
+          var time=document.createElement("small");
+          time.className="text-info mb-2";
+          time.style.cssFloat="right";
+          time.innerText="Just now";
+
+          var hr=document.createElement("hr");
+         
+          group.appendChild(group2);
+          group.appendChild(time);
+          group.appendChild(hr);
+
+          Group.insertBefore(group,Group.firstChild);
+}
         var pusher = new Pusher('c85db90d744de13b28e3', {
           cluster: 'ap1'
         });
@@ -115,21 +145,18 @@
         var channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
          
-          notiadd(data);
+          notice(data);
           
           console.log("adf"+JSON.stringify(data));
           document.getElementById("count").innerHTML=++i;
-        // document.getElementById('noti_about').innerHTML=JSON.stringify(data['message']);
         });
 
         var assignment_channel = pusher.subscribe('assignment'+ "<?php echo session('syear');echo session('smajor');?>");
         assignment_channel.bind('my-event', function(data) {
          
        notiadd(data);
-      //  alert(data["label"]);
           console.log("hadsfh"+JSON.stringify(data));
           document.getElementById("count").innerHTML=++i;
-        // document.getElementById('noti_about').innerHTML=JSON.stringify(data['message']);
           
     
       });

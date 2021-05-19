@@ -49,5 +49,16 @@ Route::post('assignment',[LoginController::class,"assignment"]);
 
 Route::post('assanswer',[LoginController::class,"assanswer"]);
 
+//admin
+Route::post('admin/login',[LoginController::class,"adminlogin"]);
+Route::post('admin/addteacher',[LoginController::class,"addteacher"]);
+Route::post('admin/addstudent',[LoginController::class,"addstudent"]);
+Route::post('notice',[LoginController::class,"notice"]);
+Route::post('admin/editstudent',[LoginController::class,"editstudent"]);
+Route::post('admin/editteacher',[LoginController::class,"editteacher"]);
+
+Route::post('feedback',[LoginController::class,"feedback"]);
+
+
 
 

@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <x-link/>
-    <title>Document</title>
+    <link rel="icon" href="https://i.ibb.co/ZzqN21h/Group-1-1.png" type="image/png" >
+ 
+    <title>Smart Attendance</title>
 </head>
 <body>
     <x-navigation/>

@@ -160,14 +160,14 @@
    <div id="contact">
     <h3 class="text-center  py-5 " data-aos="fade-down">@lang('lang.CONTACT')</h3>
 
-    <form class="container">
+    <form class="container" id="feedback">
         <div class="form-group">
-          <label for="exampleInputEmail1">Email</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">About</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
+            <label for="detail">About</label>
+            <textarea class="form-control" id="detail" rows="8" required></textarea>
           </div>
         <button type="submit" class="btn" id="send">Send</button>
       </form>
@@ -176,7 +176,33 @@
 
 
    {{-- footer --}}
-   <div id="footer" class="border w-100" style="height: 100vh;" >adsf</div>
+   <div id="footer" class=" w-100 py-3 bg-dark mt-2" style="background:#393577" >
+    <h4 class="text-white text-center col-12"><span style="color: #5754FF">Smart</span> <span style="color:#ff007f">Attendance</span></h4>
+    <center><ul class="d-flex text-white" style="width:fit-content;">
+    <li class="nav-item text-white" >
+        <a class="nav-link text-white" href="/">@lang('lang.HOME')</a>
+      </li>
+  
+      <li class="nav-item " >
+        <a class="nav-link text-white" href="/#about">@lang('lang.ABOUT')</a>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-link text-white" href="/#how-to-use">@lang('lang.HOW-TO-USE')</a>
+      </li>
+      <li class="nav-item"  >
+        <a class="nav-link text-white" href="/#contact">@lang('lang.CONTACT')</a>
+      </li>
+    
+    </ul>
+
+<div style="width:max-content">
+    <a href="https://www.facebook.com/profile.php?id=100016983571333" class="text-white mr-3" style="font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+    <a href="https://github.com/tankamout" class="text-white" style="font-size: 1.5rem;"><i class="fab fa-github"></i></a>
+
+</div>
+<span style="color:gray">copyright&copy;heinhtetaung</span>
+</center>
+</div>
  
 
 
@@ -210,6 +236,21 @@
 
 <script>
 
+
+    var form=document.forms["feedback"];
+    form.onsubmit=function(e){
+        e.preventDefault();
+        var email=document.getElementById("email");
+        var detail=document.getElementById("detail");
+        console.log(email.value)
+        console.log(detail.value)
+        axios.post('/api/feedback',{
+            'email':email.value,
+            'detail':detail.value
+        }).then(res=>{
+           alert("Thank for your feedback");
+        })
+    }
 
 
   AOS.init();

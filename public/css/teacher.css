@@ -92,6 +92,7 @@
     .left,
     .moves,
     .right {
+        color: white !important;
         transition: all 0.2s;
         border-radius: 20px;
         width: 50%;
@@ -190,6 +191,28 @@
     /* Hide scrollbar for IE, Edge and Firefox */
     
     #inbox_content {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+    
+    #inbox_body {
+        background-color: #cacacc;
+    }
+    
+    #inbox_body:hover {
+        background-color: rgba(255, 102, 203, 0.7);
+    }
+    
+    #noti::-webkit-scrollbar {
+        display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    
+    #noti {
+        overflow-y: auto;
+        height: 350px;
         -ms-overflow-style: none;
         /* IE and Edge */
         scrollbar-width: none;

@@ -1,4 +1,7 @@
 <div id="nav">
+  <link rel="icon" href="https://i.ibb.co/ZzqN21h/Group-1-1.png" type="image/png" >
+ 
+    <title>Smart Attendance</title>
     <link rel="stylesheet" href="{{asset('css/teacher.css')}}">
 <div class="navbar navbar-dark shadow-lg" style="background-color: #fc57a9;">
     <a href="/teacher"><div class="navbar-brand" style="text-transform: uppercase;font-weight:bold;">Teacher</div></a>
@@ -40,6 +43,26 @@
     <h4>Notifications</h4>
     <hr>
     <div id="noti_lists"></div>
+
+    @foreach (session('tanoti') as $item)
+    <div >
+      <div class="d-flex justify-content-between">
+          
+              <img src="{{asset('uploads/student_image/')}}<?php echo "/".$item['img'];?>" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
+            <div style="width:90%;">
+             
+              <p class="pl-2 text-left  mb-0" id="noti_about" >{{$item['name']}}  created assignment.</p>
+              {{-- <small class="ml-2 bg-info px-2 text-white rounded">{{$item['label']}}</small>   --}}
+            </div> 
+             
+      </div>
+      <small class="text-right text-info" style="float:right;">{{$item['date']}}</small>
+  </div>
+  <hr>
+    @endforeach
+
+    
+
     <div>
     <div class="d-flex justify-content-between">
      
@@ -67,46 +90,81 @@
     Pusher.log = function(msg) {
   console.log(msg);
 };
-var Group=document.getElementById("noti_lists");
 
-function notiadd(data){
-  var group=document.createElement("div");
-      group.className="my-3"
-      var group2=document.createElement("div");
-      group2.className="d-flex justify-content-between";
-      var image=document.createElement("img");
-      image.src="https://i.ibb.co/ZzqN21h/Group-1-1.png";
-      image.style.width="50px";
-      image.style.height="50px";
-      image.className="img-circle";
+    var Group=document.getElementById("noti_lists");
 
-      var text=document.createElement("p");
-      text.className="pl-2 text-left";
-      // text.style.width="90%";
-      text.innerText=JSON.stringify(data["message"]);
+    function notiadd(data){
+      var group=document.createElement("div");
+          group.className="my-3"
+          var group2=document.createElement("div");
+          group2.className="d-flex justify-content-between";
+          var group3=document.createElement("div");
+          group3.style.width="90%";
+          var image=document.createElement("img");
+          image.src="{{asset('uploads/student_image/')}}"+"/"+data["img"];
+          image.style.width="50px";
+          image.style.height="50px";
+          image.className="img-circle";
 
-      var label=document.createElement("small");
-          label.className="ml-2 bg-info px-2 text-white rounded";
-          label.innerText=data["label"];
+          var text=document.createElement("p");
+          text.className="pl-2 text-left mb-0";
+          text.style.width="90%";
+          text.innerText=data["name"] + " sent assignment answer";
+
 
           group2.appendChild(image);
-          group3.appendChild(text);
-          group3.appendChild(label);
-          group2.appendChild(group3);
+          group2.appendChild(text);
 
-      var time=document.createElement("small");
-      time.className="text-info mb-2";
-      time.style.cssFloat="right";
-      time.innerText="1 hour ago";
 
-      var hr=document.createElement("hr");
-     
-      group.appendChild(group2);
-      group.appendChild(time);
-      group.appendChild(hr);
+          var time=document.createElement("small");
+          time.className="text-info mb-2";
+          time.style.cssFloat="right";
+          time.innerText="Just now";
 
-      Group.insertBefore(group,Group.firstChild);
+          var hr=document.createElement("hr");
+         
+          group.appendChild(group2);
+          group.appendChild(time);
+          group.appendChild(hr);
+
+          Group.insertBefore(group,Group.firstChild);
+    }
+
+    function notice(data){
+    var group=document.createElement("div");
+          group.className="my-3"
+          var group2=document.createElement("div");
+          group2.className="d-flex justify-content-between";
+          var group3=document.createElement("div");
+          group3.style.width="90%";
+          var image=document.createElement("img");
+          image.src="{{asset('uploads/student_image/')}}"+"/"+data["img"];
+          image.style.width="50px";
+          image.style.height="50px";
+          image.className="img-circle";
+
+          var text=document.createElement("p");
+          text.className="pl-2 text-left mb-0";
+          text.style.width="90%";
+          text.innerText="Admin sent noitce statement";
+
+          group2.appendChild(image);
+          group2.appendChild(text);
+
+          var time=document.createElement("small");
+          time.className="text-info mb-2";
+          time.style.cssFloat="right";
+          time.innerText="Just now";
+
+          var hr=document.createElement("hr");
+         
+          group.appendChild(group2);
+          group.appendChild(time);
+          group.appendChild(hr);
+
+          Group.insertBefore(group,Group.firstChild);
 }
+      
 
     var pusher = new Pusher('c85db90d744de13b28e3', {
       cluster: 'ap1'
@@ -114,7 +172,7 @@ function notiadd(data){
     var i=parseInt(document.getElementById("count").innerHTML);
     var channel = pusher.subscribe('my-channel');
     channel.bind('my-event', function(data) {
-      notiadd(data);
+      notice(data);
    
       console.log("adf"+JSON.stringify(data));
       document.getElementById("count").innerHTML=++i;
@@ -122,7 +180,7 @@ function notiadd(data){
 
   });
   var channel1 = pusher.subscribe('my-channel'+"<?php echo session('tid');?>");
-    channel.bind('my-event', function(data) {
+    channel1.bind('my-event', function(data) {
       notiadd(data);
    
       console.log("adf"+JSON.stringify(data));

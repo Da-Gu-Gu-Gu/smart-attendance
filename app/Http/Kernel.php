@@ -53,6 +53,9 @@ class Kernel extends HttpKernel
         'teacherPage'=>[
             \App\Http\Middleware\teacherCheck::class,
         ],
+        'adminPage'=>[
+            \App\Http\Middleware\adminCheck::class,
+        ],
     ];
 
     /**

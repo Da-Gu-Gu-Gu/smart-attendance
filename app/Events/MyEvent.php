@@ -11,16 +11,19 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Admin;
 
 class MyEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $detail,$title,$img;
   
-    public function __construct($message)
+    public function __construct($title,$detail)
     {
-        $this->message = $message;
+        $this->img=Admin::where("id",1)->first('img')->img;
+        $this->title = $title;
+        $this->detail=$detail;
     }
   
     public function broadcastOn()
