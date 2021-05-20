@@ -18,7 +18,7 @@
         <p id="hidden" class="d-none">{{session('qr-lifetime')}}</p>
         <h1 class="mb-3  d-inline-block rounded  text-white px-3 py-1" id="time" style="background-color: #ff7d7b;">Scan Here<h1>
             <div class="shadow d-inline-block p-5" >
-            {{QrCode::size(300)->generate('http://localhost:8000/student/scan/'.session('rollcall-token'))}}
+            {{QrCode::size(300)->generate('http://attendance-smart.herokuapp.com/student/scan/'.session('rollcall-token'))}}
         </div>
     </div>
 </center>
