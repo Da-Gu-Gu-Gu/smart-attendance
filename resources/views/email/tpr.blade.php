@@ -19,7 +19,7 @@
             <hr>
             <div style="padding-top: 30px;padding-bottom:30px;">
             <p style="text-align: left;font-size:1.3rem;">This is password reset request for your teacher account.If you did not make this request, please ignore this mail.</p>
-            <center><a href="http://localhost:8000/teacher/password/reset/{{$token}}" style="text-decoration: none;color:white;">
+            <center><a href="http://attendance-smart.herokuapp.com/teacher/password/reset/{{$token}}" style="text-decoration: none;color:white;">
                 <div style="background-color: tomato;width:200px;height:45px;line-height:45px;border-radius:10px;">
                     Reset Password
                 </div>
