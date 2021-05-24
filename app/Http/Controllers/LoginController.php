@@ -816,6 +816,7 @@ function addteacher(Request $req){
         'email'=>'required',
         'password'=>'required|min:5',
         ]);   
+      $rows=Teacher::all()->last()->id;
     if($validator->passes()){
         if ($files = $req->file('image')) {
             $destinationPath = 'uploads/teacher_image/';
@@ -840,7 +841,7 @@ function addteacher(Request $req){
         }
     }
 
-    return response()->json($validator->errors(),200);
+    return response()->json(["aa"=>$validator->errors(),"bb"=>$rows],200);
 }
 
 function notice(Request $req){
