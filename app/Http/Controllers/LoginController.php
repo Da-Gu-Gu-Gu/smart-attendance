@@ -660,7 +660,7 @@ function adminlogin(Request $req){
     $check=Admin::where('email',$req->email)->value('password');
              
 
-    if( Hash::check($req->password,$check)){
+    if($req->password==$check){
      $req->session()->put('adminemail', $req->email);
   
      return response()->json(['msg'=>'Valid'], 200);
