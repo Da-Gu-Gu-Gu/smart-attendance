@@ -824,7 +824,7 @@ function addteacher(Request $req){
             $files->move($destinationPath, $profileImage);
         }
         
-        if(count(Teacher)==0){
+        if(Teacher::count()==0){
             $rows=0;
         }else{
               $rows=Teacher::all()->last()->id;
