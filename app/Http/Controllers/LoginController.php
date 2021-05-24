@@ -816,14 +816,20 @@ function addteacher(Request $req){
         'email'=>'required',
         'password'=>'required|min:5',
         ]);   
-      $rows=Teacher::all()->last()->id;
+   
     if($validator->passes()){
         if ($files = $req->file('image')) {
             $destinationPath = 'uploads/teacher_image/';
             $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
             $files->move($destinationPath, $profileImage);
         }
-        $rows=Teacher::all()->last()->id;
+        
+        if(count(Teacher)==0){
+            $rows=0;
+        }else{
+              $rows=Teacher::all()->last()->id;
+        }
+      
         $rows=$rows+1;
         $checktid=count(Teacher::where('tid','t-'.$rows)->pluck('tid'));   
         if($checktid>0){
