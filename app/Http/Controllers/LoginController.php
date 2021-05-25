@@ -824,12 +824,12 @@ function addteacher(Request $req){
             $files->move($destinationPath, $profileImage);
         }
         
-        if(Teacher::count()==0){
-            $rows=0;
-        }else{
-              $rows=Teacher::all()->last()->id;
+         if(Teacher::count()==0){
+        $rows=0;
         }
-      
+        else{
+        $rows=Teacher::all()->last()->id;
+        }
         $rows=$rows+1;
         $checktid=count(Teacher::where('tid','t-'.$rows)->pluck('tid'));   
         if($checktid>0){
@@ -847,7 +847,7 @@ function addteacher(Request $req){
         }
     }
 
-    return response()->json(["aa"=>$validator->errors(),"bb"=>$rows],200);
+    return response()->json(["aa"=>$validator->errors()],200);
 }
 
 function notice(Request $req){
