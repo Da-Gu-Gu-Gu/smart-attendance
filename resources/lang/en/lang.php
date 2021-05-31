@@ -6,7 +6,7 @@
  'login'=>'Login',
  'YOU NO NEED TO SHOUT'=>'YOU NO NEED TO SHOUT',
  "PRESENT SIR"=>"PRESENT SIR",
- "FOR THE ATTENDENCE"=>"FOR THE ATTENDENCE",
+ "FOR THE ATTENDENCE"=>"FOR THE ATTENDANCE",
  'student'=>'student',
  'teacher'=>'teacher',
  'Qr-Code'=>'Qr-Code',
