@@ -35,7 +35,7 @@
    <div id="about" class="container  mt-5">
        <h3 class="text-center" data-aos="fade-down">@lang('lang.ABOUT')</h3>
        <div id="about-text" class="bd-callout-info my-5">
-            <p>This system is smart attendece system by scanning the <span> qr-code</span>  . I hope this can reduce a lot of times , papers and more easier . And there have two main parts, <b>Teacher </b> and <b>Student</b>.</p> 
+            <p>This system is smart attendance system by scanning the <span> qr-code</span>  . I hope this can reduce a lot of times , papers and more easier . And there have two main parts, <b>Teacher </b> and <b>Student</b>.</p> 
                 
         </div>  
         <center>
